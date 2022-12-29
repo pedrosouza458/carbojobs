@@ -1,0 +1,223 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+     "title": "CarboJobs Documentation",
+     "description": "Testando API com Swagger",
+     "termsOfService": "http://localhost:5140/terms",
+     "contact": {
+        "email": "carbojobs123@gmail.com"
+     },
+     "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5140/v1",
+            "description": "API de teste"
+        },
+        {
+            "url": "http://localhost:5140/v2",
+            "description": "API de produção"
+        }
+    ],
+    "paths": {
+        "/clients/create":{
+            "post":{
+              "summary": "Cadastro de Cliente",
+              "description": "Essa rota irá criar um cliente",
+              "security": [{"bearerAuth": []}],
+              "tags": ["Clients"],
+              "requestBody": {
+                 "content": {
+                    "application/json":{
+                        "schema": {
+                            "$ref": "#/components/schemas/Clients"
+                        },
+                        "examples": {
+                            "client":{
+                                "value":{
+                                    "id": "ede590e4-8ef1-4f88-b8db-7672156877b1",
+                                    "name": "Fulana",
+                                    "email": "fulana@gmail.com",
+                                    "password": "12345",
+                                    "photo": "url(example.png)",
+                                    "location": "Charqueadas",
+                                    "text": "Oi, sou a Fulana!",
+                                    "createdAt": "16/12/22/23:42"
+                                }
+                            }
+                        }
+                    }
+                 }
+              },
+              "responses": {
+                "401":{
+                    "description": "Cliente não-autorizado"
+                },
+                "400":{
+                    "description": "Cliente já cadastrado!"
+                },
+                "200":{
+                    "description": "OK",
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "$ref": "#/components/schemas/Clients"
+                            }
+                        }
+                    }
+                }
+              }
+            }
+          },
+        "/clients/count":{
+          "get":{
+            "summary": "Contagem de clientes",
+            "description": "Essa rota conta os clientes no sistema",
+            "tags": ["Clients"],
+            "requestBody":{
+                "content": {
+                  "application/json":{
+                    "schema": {
+                       "$ref": "#/components/schemas/Clients"
+                    },
+                    "examples": {
+                        "client": {
+                            "value":{
+                                "id": "ede590e4-8ef1-4f88-b8db-7672156877b1",
+                                "name": "Fulana",
+                                "email": "fulana@gmail.com",
+                                "password": "12345",
+                                "photo": "url(example.png)",
+                                "location": "Charqueadas",
+                                "text": "Oi, sou a Fulana!",
+                                "createdAt": "16/12/22/23:42"
+                            }
+                        }
+                    }
+                  }
+                }
+            },
+            "responses": {
+                "401":{
+                    "description": "Não-Autorizado"
+                },
+                "400":{
+                    "description": "Não foram encontrados clientes"
+                },
+                 "200":{
+                    "description": "OK",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "example":{
+                                    "count": 1
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+          }
+        },
+        "/clients/findByName":{
+          "get":{
+            "description": "Buscar Cliente pelo Nome",
+            "summary": "Busca um cliente pelo nome",
+            "tags":["Clients"],
+            "parameters": [
+                {
+                    "name": "name",
+                    "in": "query",
+                    "description": "Nome do cliente para busca",
+                    "required": true
+                }
+            ],
+            "responses": {
+                "200":{
+                    "description": "OK",
+                    "content": {
+                        "application/json":{
+                            "schema": {
+                                "type": "array",
+                                "example":{
+                                    "$ref": "#/components/schemas/Client"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+         }
+        },
+          "/clients/{id}":{
+            "get":{
+              "description": "Buscar Cliente pelo Id",
+              "summary": "Busca um cliente pelo id",
+              "tags":["Clients"],
+              "parameters": [
+                  {
+                      "name": "id",
+                      "in": "path",
+                      "description": "Nome do cliente pelo id",
+                      "required": true
+                  }
+              ],
+              "responses": {
+                  "200":{
+                      "description": "OK",
+                      "content": {
+                          "application/json":{
+                              "schema": {
+                                  "type": "object",
+                                  "$ref": "#/components/schemas/Clients"
+                              }
+                          }
+                      }
+                  }
+              }
+           }
+          }
+    },
+    "components": {
+        "schemas": {
+            "Clients":{
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "photo": {
+                        "type": "string"
+                    },
+                    "location":{
+                        "type": "string"
+                    },
+                    "text":{
+                        "type": "string"
+                    },
+                    "createdAt":{
+                        "type": "number"
+                    },
+                    "id":{
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearAuth":{
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
