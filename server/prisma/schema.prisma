@@ -8,7 +8,7 @@ generator erd {
 
 datasource db {
   provider = "sqlite"
-  url      = env("mysql://root:97p2aQCM1ZdXP7gRU29H@containers-us-west-17.railway.app:7180/railway")
+  url      = env(DATABASE_URL)
 }
 
 model Client {
