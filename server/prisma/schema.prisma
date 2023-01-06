@@ -23,6 +23,7 @@ model Client {
   createdAt  DateTime  @default(now())
   text       String
   comment    Comment[]
+  post       Post[]
 }
 
 model Provider {
@@ -41,6 +42,7 @@ model Provider {
   starAverage Float
   medals      Medals[]
   comment     Comment[]
+  post        Post[]
 }
 
 model Location {
@@ -53,8 +55,9 @@ model Location {
 model Service {
   id       String     @id @default(cuid())
   type     String
-  icon     String?
   provider Provider[]
+  banner   Banner[]
+  post     Post[]
 }
 
 model Comment {
@@ -68,6 +71,8 @@ model Comment {
   clientId    String?
   provider    Provider? @relation(fields: [providerId], references: [id])
   providerId  String?
+  Post        Post?     @relation(fields: [postId], references: [id])
+  postId      String?
 }
 
 model Medals {
@@ -75,4 +80,28 @@ model Medals {
   type       String
   provider   Provider? @relation(fields: [providerId], references: [id])
   providerId String?
+}
+
+model Banner {
+  id        String  @id @default(cuid())
+  photo     String
+  service   Service? @relation(fields: [serviceId], references: [id])
+  serviceId String?
+  phone     String
+  accept    Boolean
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  photo       String
+  service     Service   @relation(fields: [serviceId], references: [id])
+  serviceId   String
+  Client      Client?   @relation(fields: [clientId], references: [id])
+  clientId    String?
+  Provider    Provider? @relation(fields: [providerId], references: [id])
+  providerId  String?
+  comment     Comment[]
+  createdAt   DateTime  @default(now())
 }

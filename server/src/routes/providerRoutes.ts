@@ -55,7 +55,7 @@ router.post("/create", async (request, reply) => {
       },
     });
 
-    return reply.status(201).send({response});
+    return reply.status(201).send("deu certo");
   });
 
   

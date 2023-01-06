@@ -2,6 +2,7 @@ import express from 'express'
 import { prisma } from '../lib/prisma'
 import { Router, Request, Response } from 'express';
 import { z } from 'zod';
+import bcrypt from 'bcrypt';
 
 const router = express.Router()
 
@@ -11,9 +12,12 @@ router.get('/count', async (req: Request, res: Response) => {
 })
 
 router.get('/list', async (req: Request, res: Response) => {
-  const allClients = await prisma.client.findMany()
-
-  res.json({allClients})
+  const allClients = await prisma.client.findMany({
+    include: {
+      location: true
+    }
+  })
+  res.json(allClients)
 })
 
   //  criar clientes
@@ -26,9 +30,13 @@ router.post("/create", async (request, reply) => {
       locationId: z.string(),
       text: z.string()
     });
+
+
+
     const { name } = createClientBody.parse(request.body);
     const { email } = createClientBody.parse(request.body);
     const { password } = createClientBody.parse(request.body);
+    const hash = await bcrypt.hash(password, 20)
     const { phone } = createClientBody.parse(request.body);
     const { locationId } = createClientBody.parse(request.body);
     const { text } = createClientBody.parse(request.body);

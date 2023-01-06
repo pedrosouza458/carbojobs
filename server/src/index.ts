@@ -16,6 +16,11 @@ const providerRoute = require('./routes/providerRoutes')
 app.use('/providers', providerRoute)
 const commentsRoute = require('./routes/commentsRoutes')
 app.use('/comments', commentsRoute)
+const bannersRoute = require('./routes/bannerRoutes')
+app.use('/banners', bannersRoute)
+const postsRoute = require('./routes/postRoutes')
+app.use('/posts', postsRoute)
+
 
 app.use(express.json())
 
