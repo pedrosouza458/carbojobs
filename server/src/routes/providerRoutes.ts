@@ -14,7 +14,9 @@ router.get('/list', async (req: Request, res: Response) => {
     const allProviders = await prisma.provider.findMany({
       include: {
         service: true,
-        location: true
+        location: true,
+        post: true,
+        reply: true
       }
     })
     res.send(allProviders)

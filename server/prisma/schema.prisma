@@ -22,8 +22,12 @@ model Client {
   locationId String
   createdAt  DateTime  @default(now())
   text       String
-  comment    Comment[]
-  post       Post[]
+  Comment    Comment?  @relation(fields: [commentId], references: [id])
+  commentId  String?
+  Post       Post?     @relation(fields: [postId], references: [id])
+  postId     String?
+  Reply      Reply?    @relation(fields: [replyId], references: [id])
+  replyId    String?
 }
 
 model Provider {
@@ -41,8 +45,12 @@ model Provider {
   text        String
   starAverage Float
   medals      Medals[]
-  comment     Comment[]
-  post        Post[]
+  comment     Comment?  @relation(fields: [commentId], references: [id])
+  commentId   String?
+  reply       Reply?    @relation(fields: [replyId], references: [id])
+  replyId     String?
+  post        Post?     @relation(fields: [postId], references: [id])
+  postId      String?
 }
 
 model Location {
@@ -61,18 +69,25 @@ model Service {
 }
 
 model Comment {
-  id          String    @id @default(cuid())
-  stars       Int
-  text        String
-  replyId     String?   @unique
-  reply       Comment?  @relation("CommentsReply", fields: [replyId], references: [id])
-  predecessor Comment?  @relation("CommentsReply")
-  client      Client?   @relation(fields: [clientId], references: [id])
-  clientId    String?
-  provider    Provider? @relation(fields: [providerId], references: [id])
-  providerId  String?
-  Post        Post?     @relation(fields: [postId], references: [id])
-  postId      String?
+  id       String     @id @default(cuid())
+  stars    Int
+  text     String
+  reply_id String?
+  Post     Post?      @relation(fields: [postId], references: [id])
+  postId   String?
+  reply    Reply?     @relation(fields: [replyId], references: [id])
+  replyId  String?
+  Client   Client[]
+  Provider Provider[]
+  
+}
+
+model Reply {
+  id       String     @id @default(cuid())
+  text     String
+  Comment  Comment[]
+  Client   Client[]
+  Provider Provider[]
 }
 
 model Medals {
@@ -83,7 +98,7 @@ model Medals {
 }
 
 model Banner {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
   photo     String
   service   Service? @relation(fields: [serviceId], references: [id])
   serviceId String?
@@ -92,16 +107,14 @@ model Banner {
 }
 
 model Post {
-  id          String    @id @default(cuid())
+  id          String     @id @default(cuid())
   title       String
   description String
   photo       String
-  service     Service   @relation(fields: [serviceId], references: [id])
+  service     Service    @relation(fields: [serviceId], references: [id])
   serviceId   String
-  Client      Client?   @relation(fields: [clientId], references: [id])
-  clientId    String?
-  Provider    Provider? @relation(fields: [providerId], references: [id])
-  providerId  String?
+  Client      Client[]
   comment     Comment[]
-  createdAt   DateTime  @default(now())
+  createdAt   DateTime   @default(now())
+  Provider    Provider[]
 }
