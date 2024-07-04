@@ -12,7 +12,7 @@ export async function ChangeAppointmentStatus(app: FastifyInstance) {
     WHERE id = ${id}
     `;
 
-    reply.redirect(`http://localhost:3000/appointments/${status}`)
+    reply.redirect(`https://carbojobs.vercel.app/appointments/${status}`)
 
     return reply.status(201).send(appointments);
   });

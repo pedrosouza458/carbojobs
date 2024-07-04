@@ -57,7 +57,7 @@ export function ProviderQRCode({
         </h1>
   
           <Canvas
-            text={`http://localhost:3000/providers/${providerId}`}
+            text={`https://carbojobs.vercel.app/providers/${providerId}`}
             options={{
               errorCorrectionLevel: "M",
               margin: 3,

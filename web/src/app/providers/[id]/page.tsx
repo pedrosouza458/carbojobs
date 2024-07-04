@@ -168,7 +168,7 @@ export default async function ProviderDetails() {
           </div>
           {business === null && <p>Esse prestador não possui serviços.</p>}
         </div>
-        <div>
+        {/* <div>
           <h3 className="text-xl font-bold mb-4">Comentários</h3>
           <div className="space-y-4">
             <Card>
@@ -202,7 +202,7 @@ export default async function ProviderDetails() {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

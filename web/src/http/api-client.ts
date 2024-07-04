@@ -3,7 +3,7 @@ import { CookiesFn } from 'cookies-next/lib/types'
 import ky from 'ky'
 
 export const api = ky.create({
-  prefixUrl: 'http://localhost:3001',
+  prefixUrl: "https://carbojobs-api.vercel.app",
   hooks: {
     beforeRequest: [
       async (request) => {

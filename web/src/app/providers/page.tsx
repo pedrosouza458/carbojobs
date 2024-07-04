@@ -194,23 +194,27 @@ export function Providers() {
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
+              size='default'
               className={currentPage <= 1 ? "hidden" : undefined}
               href="#"
               onClick={() => setCurrentPage(currentPage - 1)}
             ></PaginationPrevious>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#"> {currentPage}</PaginationLink>
+            <PaginationLink size='default'href="#">
+              {" "}
+              {currentPage}
+            </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#" isActive>
+            <PaginationLink size='default'href="#" isActive>
               <button onClick={() => setCurrentPage(currentPage + 1)}>
                 {currentPage + 1}
               </button>
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#" isActive>
+            <PaginationLink size='default' href="#" isActive>
               <button onClick={() => setCurrentPage(currentPage + 2)}>
                 {currentPage + 2}
               </button>
@@ -220,7 +224,7 @@ export function Providers() {
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext
+            <PaginationNext size='default'
               href="#"
               onClick={() => setCurrentPage(currentPage + 1)}
             ></PaginationNext>

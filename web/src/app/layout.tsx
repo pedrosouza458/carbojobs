@@ -3,6 +3,7 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
+import Analitycs from "@/components/analytics";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
+        <Analitycs />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

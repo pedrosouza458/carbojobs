@@ -40,7 +40,7 @@ export async function ProvidersList({
 
   return (
     <div>
-      <div className="lg:px-20 pt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="px-10 lg:px-20 pt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {providers.map((provider: any) => (
           <Card key={provider.id}>
             <CardHeader>
@@ -49,7 +49,7 @@ export async function ProvidersList({
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="rounded-md lg:w-full lg:h-auto max-h-44 max-w-90"
+                  className="rounded-md w-full h-auto max-h-44 max-w-full"
                   src={provider.avatar_url}
                   alt={provider.name}
                 />
@@ -58,31 +58,22 @@ export async function ProvidersList({
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="rounded-md lg:w-full lg:h-auto max-h-40 max-w-90"
+                  className="rounded-md w-full h-auto max-h-56 max-w-full"
                   src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
                   alt={provider.name}
                 />
               )}
               <CardTitle className="pt-2 text-xl">{provider.name}</CardTitle>
-              {provider.indicated != null && (
-                <></>
-              )}
-              <p className="text-green-500 text-sm font-medium">{provider.indicated} cliente(s) indicaram esse prestador</p>
-              {/* <div className="star-rating flex items-center">
-                <Star fill="#FD3D6D" strokeWidth={0} />
-                <Star fill="#FD3D6D" strokeWidth={0} />
-                <Star fill="#FD3D6D" strokeWidth={0} />
-                <Star fill="#FD3D6D" strokeWidth={0} />
-                <StarHalf fill="#FD3D6D" strokeWidth={0} />
-                <p className="text-sm text-muted-foreground">(12)</p>
-              </div> */}
+              {provider.indicated != null && <></>}
+              <p className="text-green-500 text-sm font-medium">
+                {provider.indicated} cliente(s) indicaram esse prestador
+              </p>
               <CardDescription className="text-sm">
                 {provider.service} - {provider.city}
               </CardDescription>
             </CardHeader>
             <CardFooter>
               <Button className="w-full">
-                {" "}
                 <Link href={`/providers/${provider.id}`}>Ver detalhes</Link>
               </Button>
             </CardFooter>
