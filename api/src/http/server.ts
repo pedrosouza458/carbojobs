@@ -18,6 +18,8 @@ import { CreateAppointment } from "./routes/appointments/create-appointment";
 import { DeleteBusiness } from "./routes/business/delete-business";
 import { IndicateProvider } from "./routes/indications/indicate-provider";
 import { CreateLink } from "./routes/links/create-link";
+import { DeleteUser } from "./routes/users/delete-user";
+import { DeleteLink } from "./routes/links/delete-link";
 require('dotenv').config();
 const app = fastify()
 
@@ -30,6 +32,7 @@ app.register(CreateUser)
 app.register(UpdateUser)
 app.register(LoginUser)
 app.register(GetProfile)
+app.register(DeleteUser)
 
 app.register(GetBusinessByProvider)
 app.register(GetBusinessDetails)
@@ -44,8 +47,10 @@ app.register(DeleteAppointments)
 app.register(CreateAppointment)
 
 app.register(CreateLink)
+app.register(DeleteLink)
 
 app.register(IndicateProvider)
+
 
 app.register(fasitfyJwt, {
   secret: process.env.JWT_SECRET as string,

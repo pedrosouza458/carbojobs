@@ -41,12 +41,12 @@ export default async function ProviderDetails() {
     <div className="px-12 max-w-6xl mx-auto md:px-6 py-4 md:py-10">
       {provider.map((provider: any) => (
         <div key={provider.id} className="">
-          <div className="flex gap-10 items-center justify-center">
+          <div className="flex  items-center justify-center">
             <div className="lg:flex md:flex items-center justify-center gap-6 mb-4">
               <div>
                 {provider.avatar_url != null ? (
                   <img
-                    className="h-72 w-full md:h-52 rounded-md "
+                    className="max-h-72 w-full md:h-52 rounded-md "
                     alt={`Perfil de ${provider.name}`}
                     src={provider.avatar_url}
                   />

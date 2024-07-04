@@ -22,7 +22,8 @@ import { Roles } from "@/enums/roles";
 import { Cities } from "@/enums/citites";
 import { Services } from "@/enums/services";
 import { signUpAction } from "./action";
-
+import { track } from "@vercel/analytics/react";
+ 
 export function SignUpForm() {
   const router = useRouter();
   const [selectedRole, setSelectedRole] = useState("");
@@ -49,6 +50,7 @@ export function SignUpForm() {
       // Call signUpAction and return its result
       const result = await signUpAction(form);
       if (result.success) {
+        track(`${formData.name} se cadastrou`, {}, { flags: ['cadastro'] });
         router.push("/auth/sign-in");
       }
       return result;

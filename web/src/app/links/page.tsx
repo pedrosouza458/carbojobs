@@ -1,6 +1,8 @@
 import { AppointmentList } from "@/components/appointments-list";
 import { BusinessForm } from "@/components/business-form";
 import { BusinessList } from "@/components/business-list";
+import { LinksForm } from "@/components/links-form";
+import { LinksList } from "@/components/links-list";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,9 +12,9 @@ import {
   DialogDescription,
   DialogHeader,
 } from "@/components/ui/dialog";
-import { Plus } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
 
-export default function Business() {
+export default function Links() {
   return (
     <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-10">
       <Dialog>
@@ -23,15 +25,13 @@ export default function Business() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Criar trabalho</DialogTitle>
+            <DialogTitle>Criar link</DialogTitle>
           </DialogHeader>
-          <BusinessForm />
+          <LinksForm />
         </DialogContent>
       </Dialog>
 
-      
-          <BusinessList />
- 
+      <LinksList />
     </div>
   );
 }

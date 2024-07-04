@@ -31,13 +31,12 @@ export default function ProfilePage() {
     updateUserAction,
     () => {
       toast({
-        title: "Perfil alterado"
+        title: "Perfil alterado",
       });
       router.push("/profile");
     }
   );
 
-  
   return (
     <div className="">
       {user.map((user: any) => (
@@ -50,7 +49,7 @@ export default function ProfilePage() {
                 </Link>
               </Button>
               <Separator className="mt-2" />
-            <AvatarForm/>
+              <AvatarForm />
               <Separator className="my-3" />
               <form onSubmit={handleSubmit}>
                 <div className="space-y-2">
@@ -76,15 +75,7 @@ export default function ProfilePage() {
             </div>
           ) : (
             <div key={user.id}>
-                     <AvatarForm/>
-              <div className="space-y-2">
-                <Label>Nome</Label>
-                <Input defaultValue={user.name} />
-              </div>
-              <div className="space-y-2">
-                <Label>Descrição</Label>
-                <Input defaultValue={user.name} />
-              </div>
+              <AvatarForm />
               <div className="space-y-2">
                 <Label>Nome</Label>
                 <Input defaultValue={user.name} />

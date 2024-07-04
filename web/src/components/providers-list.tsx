@@ -50,7 +50,7 @@ export async function ProvidersList({
                 width={300}
                 height={500}
                 sizes="100vw"
-                className="rounded-md object-cover w-full h-72 md:w-96 md:h-52"
+                className="rounded-md object-cover w-full h-44 md:w-96 md:h-52"
                 src={provider.avatar_url}
                 alt={provider.name}
               />

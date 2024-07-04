@@ -6,7 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import GoogleAnalitycs from "@/components/analytics";
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: "CarboJobs",
 };
 
 export default function RootLayout({

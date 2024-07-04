@@ -119,6 +119,21 @@ export async function Header() {
                     )}
                   </div>
                 ))}
+
+              {user &&
+                user.map((user: any) => (
+                  <div key={user.id}>
+                    {user?.role === "Prestador" && (
+                      <Link
+                        key={user.id}
+                        className=" text-base text-primary font-semibold"
+                        href={`/links`}
+                      >
+                        Links
+                      </Link>
+                    )}
+                  </div>
+                ))}
             </SheetHeader>
             {/* <SheetFooter>
           <SheetClose asChild>
@@ -152,6 +167,12 @@ export async function Header() {
                     href={"/appointments"}
                   >
                     Agendamentos
+                  </Link>
+                  <Link
+                    className=" text-sm hidden md:block lg:block"
+                    href={"/links"}
+                  >
+                    Links
                   </Link>
                 </>
               )}

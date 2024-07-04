@@ -4,10 +4,9 @@
   "description": "",
   "main": "src/http/server.ts",
   "scripts": {
+    "build": "tsx ./src/http/setup.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch ./src/http/server.ts",
-    "setup": "tsx ./src/http/setup.ts",
-    "seed": "tsx ./src/http/seed.ts"
+    "dev": "tsx watch ./src/http/server.ts"
   },
   "keywords": [],
   "author": "",
