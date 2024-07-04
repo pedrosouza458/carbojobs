@@ -44,7 +44,8 @@ export async function updateUserAvatarAction(data: FormData) {
   console.log('FormData prepared:', data);
 
   try {
-    const response = await fetch(`https://api.cloudinary.com/v1_1/dyx21grtn/image/upload/w_500,h_300,c_fill/${avatarFile.name}`, {
+    
+    const response = await fetch('https://api.cloudinary.com/v1_1/dyx21grtn/image/upload', {
       method: 'POST',
       body: data
     });

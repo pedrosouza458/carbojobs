@@ -45,14 +45,16 @@ export async function ProvidersList({
           <Card key={provider.id}>
             <CardHeader>
               {provider.avatar_url ? (
-                <Image
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  className="rounded-md w-full h-full max-h-60 max-w-full"
-                  src={provider.avatar_url}
-                  alt={provider.name}
-                />
+
+              <Image
+                width={300}
+                height={500}
+                sizes="100vw"
+                className="rounded-md object-cover w-full h-72 md:w-96 md:h-52"
+                src={provider.avatar_url}
+                alt={provider.name}
+              />
+      
               ) : (
                 <Image
                   width={0}
