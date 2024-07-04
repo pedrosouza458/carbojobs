@@ -49,7 +49,7 @@ export async function ProvidersList({
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="rounded-md w-full h-auto max-h-44 max-w-full"
+                  className="rounded-md w-full h-full max-h-60 max-w-full"
                   src={provider.avatar_url}
                   alt={provider.name}
                 />
