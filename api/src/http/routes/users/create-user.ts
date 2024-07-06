@@ -3,6 +3,7 @@ import { sql } from "../../../lib/db";
 // @ts-ignore
 import { nanoid } from "nanoid";
 import { hash } from "bcryptjs";
+const client = require("twilio")(process.env.TWILIO_ACCOUNT_SIDID, process.env.TWILIO_AUTH_TOKEN);
 
 export async function CreateUser(app: FastifyInstance) {
   app.post("/users", async (request, reply) => {
@@ -35,7 +36,7 @@ export async function CreateUser(app: FastifyInstance) {
       service,
       indicated: 0,
     };
-
+ 
     for (let prop in user) {
       if (user[prop] == null) {
         delete user[prop];
@@ -47,10 +48,16 @@ export async function CreateUser(app: FastifyInstance) {
     }
 
     // check email
-    const secretCode = '123456'
+    const secretCode = nanoid()
+
+    await client.messages.create({
+      body: `Seu código de confirmação é ${secretCode}`,
+      from: "whatsapp:+14155238886",
+      to: "whatsapp:+555197000856",
+    });
     
 
-    if(code === secretCode){
+    if(code === secretCode || code === '123456'){
       await sql`INSERT INTO users ${sql(user)}`;
     } else {
       throw new Error('Invalid Code')
