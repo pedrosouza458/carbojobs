@@ -29,9 +29,7 @@ export default function Business() {
         </DialogContent>
       </Dialog>
 
-      
-          <BusinessList />
- 
+      <BusinessList />
     </div>
   );
 }

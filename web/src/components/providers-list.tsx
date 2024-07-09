@@ -8,22 +8,8 @@ import {
   CardFooter,
 } from "./ui/card";
 import Image from "next/image";
-import { getInitials } from "@/utils/get-initials";
 import { Button } from "./ui/button";
-import { Star, StarHalf } from "lucide-react";
-import { getProfile } from "@/http/get-profile";
-import { getFirstName } from "@/utils/get-first-name";
 import Link from "next/link";
-import { Cities } from "@/enums/citites";
-import { Services } from "@/enums/services";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { Input } from "./ui/input";
 
 export async function ProvidersList({
   page,
@@ -45,22 +31,20 @@ export async function ProvidersList({
           <Card key={provider.id}>
             <CardHeader>
               {provider.avatar_url ? (
-
-              <Image
-                width={300}
-                height={500}
-                sizes="100vw"
-                className="rounded-md object-cover w-full h-44 md:w-96 md:h-52"
-                src={provider.avatar_url}
-                alt={provider.name}
-              />
-      
+                <Image
+                  width={300}
+                  height={500}
+                  sizes="100vw"
+                  className="rounded-md object-cover w-full h-44 md:w-96 md:h-52"
+                  src={provider.avatar_url}
+                  alt={provider.name}
+                />
               ) : (
                 <Image
                   width={0}
                   height={0}
                   sizes="100vw"
-                  className="rounded-md w-full h-auto max-h-56 max-w-full"
+                  className="rounded-md object-cover w-full h-44 md:w-96 md:h-52"
                   src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
                   alt={provider.name}
                 />

@@ -24,17 +24,18 @@ import { AppointmentForm } from "@/components/appointment-form";
 import { getDayNumbers } from "@/utils/get-day-numbers";
 import { IndicateForm } from "@/components/indicate-form";
 
-export default async function ProviderDetails() {
-  const providerId = cookies().get("provider")?.value;
 
+export default async function ProviderDetails({ params }: { params: { id: string } }) {
+  // const providerId = cookies().get("provider")?.value;
+  const { id } = params;
   let provider: any;
   let business: any;
   let links: any;
 
-  if (providerId) {
-    provider = await getProviderDetails(providerId);
-    business = await getBusinessByProvider(providerId);
-    links = await getLinksByProvider(providerId);
+  if (id) {
+    provider = await getProviderDetails(id);
+    business = await getBusinessByProvider(id);
+    links = await getLinksByProvider(id);
   }
 
   return (
@@ -44,17 +45,23 @@ export default async function ProviderDetails() {
           <div className="flex  items-center justify-center">
             <div className="lg:flex md:flex items-center justify-center gap-6 mb-4">
               <div>
-                {provider.avatar_url != null ? (
-                  <img
-                    className="max-h-72 w-full md:h-52 rounded-md "
-                    alt={`Perfil de ${provider.name}`}
+                {provider.avatar_url ? (
+                  <Image
+                    width={300}
+                    height={500}
+                    sizes="100vw"
+                    className="rounded-md object-cover max-w-72 h-44 md:w-96 md:h-52"
                     src={provider.avatar_url}
+                    alt={provider.name}
                   />
                 ) : (
-                  <img
-                    className="h-full w-full md:h-52 rounded-md "
-                    alt={`Perfil de ${provider.name}`}
+                  <Image
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="rounded-md w-full h-auto max-h-56 max-w-full"
                     src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+                    alt={provider.name}
                   />
                 )}
               </div>
@@ -77,7 +84,7 @@ export default async function ProviderDetails() {
                       </div>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
-                      <IndicateForm providerId={provider.id}/>
+                      <IndicateForm providerId={provider.id} />
                     </DialogContent>
                   </Dialog>
                   <Dialog>
@@ -108,14 +115,24 @@ export default async function ProviderDetails() {
           <h3 className="text-xl font-bold mb-4 my-6">Links</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
             {links.map((link: any) => (
-              <Card key={links.id} className="w-40 h-10 lg:w-60">
-                <Link href={link.url}>
-                  <CardContent className="flex gap-3 my-2 items-stretch">
-                    <LinkIcon className="size-5" />
+              <Card key={link.id} className="w-40 h-10 lg:w-60">
+                <CardContent className="flex gap-3 my-2 items-center">
+                  <LinkIcon className="size-5" />
+                  <a href={link.url} target="_blank">
+                    {" "}
                     {link.title}
-                  </CardContent>
-                </Link>
+                  </a>
+                </CardContent>
               </Card>
+
+              // <Card key={link.id} className="w-40 h-10 lg:w-60">
+              //   <a href={link.url} target="_blank" rel="noopener noreferrer">
+              //     <CardContent className="flex gap-3 my-2 items-center">
+              //       <LinkIcon className="size-5" />
+              //       {link.title}
+              //     </CardContent>
+              //   </a>
+              // </Card>
             ))}
           </div>
         </div>

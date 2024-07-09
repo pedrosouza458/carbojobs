@@ -21,7 +21,6 @@ const signUpSchema = z
     city: nativeEnum(Cities),
     role: nativeEnum(Roles),
     service: z.string(),
-    code: z.string(),
   })
   .refine((data) => data.password === data.password_confirmation, {
     message: "Senhas não batem",
@@ -37,7 +36,7 @@ export async function signUpAction(data: FormData) {
     return { success: false, message: null, errors };
   }
 
-  const { name, email, password, city, phone, role, service, code } =
+  const { name, email, password, city, phone, role, service } =
     result.data;
 
   try {
@@ -49,7 +48,6 @@ export async function signUpAction(data: FormData) {
       phone,
       role,
       service: service ? service : "",
-      code,
     })
 
   } catch (err) {

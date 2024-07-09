@@ -5,6 +5,7 @@ interface CreateAppointmentRequest {
   hour: string;
   name: string;
   phone: string;
+  description: string;
   business_id: string;
   provider_id: string;
 }
@@ -18,16 +19,18 @@ export async function createAppointment({
   hour,
   name,
   phone,
+  description,
   business_id,
   provider_id,
 }: CreateAppointmentRequest) {
   const result = await api
-    .post("appointments", {
+    .post(`appointments/${business_id}`, {
       json: {
         date,
         hour,
         name,
         phone,
+        description,
         business_id,
         provider_id
       },

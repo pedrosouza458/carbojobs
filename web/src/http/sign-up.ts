@@ -11,7 +11,6 @@ interface SignUpRequest {
   role: Roles,
   city: Cities | null,
   service: string,
-  code: string
 }
 
 type SignUpResponse = void
@@ -24,7 +23,6 @@ export async function signUp({
   role,
   phone,
   service,
-  code
 }: SignUpRequest): Promise<SignUpResponse> {
   await api
     .post('users', {
@@ -36,7 +34,6 @@ export async function signUp({
         phone,
         role,
         service,
-        code
       },
     })
     .json<SignUpResponse>()

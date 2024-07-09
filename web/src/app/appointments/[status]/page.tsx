@@ -1,8 +1,7 @@
-import { cookies } from "next/headers";
 
-export default async function AppointmentStatus() {
-  const status = cookies().get("status")?.value;
+export default async function AppointmentStatus({ params }: { params: { status: string } }) {
 
+  const { status } = params;
   return (
     <div className="text-center px-8 py-8">
       <h1>Seu agendamento foi {status}.</h1>

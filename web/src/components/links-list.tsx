@@ -61,7 +61,7 @@ export async function LinksList() {
                   </div>
                 </div>
                 <p className="text-secondary-foreground text-sm  dark:text-gray-400">
-                  <a href={links.url}> {links.url}</a>
+                  <a href={links.url} target="_blank"> {links.url}</a>
                 </p>
               </div>
             </CardContent>

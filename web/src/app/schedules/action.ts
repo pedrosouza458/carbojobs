@@ -14,7 +14,7 @@ export async function updateScheduleAction(data: FormData) {
     hours: data.getAll("hours"),
     days: data.getAll("days"),
   };
-  console.log(hours, days);
+  // console.log(hours, days);
 
   const response = await updateSchedule({
     hours: hours || "",

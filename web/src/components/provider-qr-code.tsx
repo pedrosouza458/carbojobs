@@ -57,7 +57,7 @@ export function ProviderQRCode({
         </h1>
   
           <Canvas
-            text={`https://carbojobs.vercel.app/providers/${providerId}`}
+            text={`https://carbojobs.com/providers/${providerId}`}
             options={{
               errorCorrectionLevel: "M",
               margin: 3,
@@ -71,6 +71,7 @@ export function ProviderQRCode({
           />
   
       </article>
+      <h1>https://carbojobs.vercel.app/providers/{providerId}</h1>
       <Button className=" w-full" onClick={prepareURL}>
         Baixar
       </Button>

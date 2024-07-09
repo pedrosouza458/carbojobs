@@ -10,6 +10,7 @@ export function ChangeStatusButton({ type, appointmentId, status }: any) {
   function triggerConfirmButton() {
     // console.log(appointmentId, status)
     changeAppointmentStatus(appointmentId, status);
+    router.push('/appointments')
   }
   return <Button onClick={triggerConfirmButton}>{type}</Button>;
 }

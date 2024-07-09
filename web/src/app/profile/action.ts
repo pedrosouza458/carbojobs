@@ -41,7 +41,7 @@ export async function updateUserAvatarAction(data: FormData) {
   }
   data.append('file', avatarFile);
   data.append('upload_preset', 'fys9zj8v');
-  console.log('FormData prepared:', data);
+  // console.log('FormData prepared:', data);
 
   try {
     

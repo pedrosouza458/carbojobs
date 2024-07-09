@@ -67,7 +67,6 @@ export function AppointmentForm({
               onSelect={setSelectedDate}
               disabled={{ dayOfWeek: days }}
             />
-
             {selectedDate ? (
               <Input name="date" value={format(selectedDate, "dd/MM/yyyy")} />
             ):   <Input value='' />}
@@ -94,6 +93,15 @@ export function AppointmentForm({
               </Select>
             </div>
             <div className="space-y-3">
+              <Label htmlFor="name">Descrição (opcional)</Label>
+              <Input
+                type="text"
+                name="description"
+                placeholder="Digite seu nome"
+                className="w-[90%]"
+              />
+            </div>
+            <div className="space-y-3">
               <Label htmlFor="name">Nome</Label>
               <Input
                 type="text"
@@ -111,6 +119,8 @@ export function AppointmentForm({
                 className="w-[90%]"
               />
             </div>
+
+            
           </div>
         </>
         <Button type="submit"  className="w-[90%]">
