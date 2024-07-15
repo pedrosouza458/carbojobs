@@ -159,7 +159,7 @@ export default async function ProviderDetails({ params }: { params: { id: string
                     <DialogTrigger asChild className="flex gap-2">
                       <Button className="h-full w-full">Agendar agora</Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[600px]">
+                    <DialogContent className="max-w-[600px] max-h-full">
                       <DialogHeader>
                         <DialogTitle>{business.title}</DialogTitle>
                       </DialogHeader>

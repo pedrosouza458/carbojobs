@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 import {
   Card,
@@ -10,44 +10,44 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 const chartData = [
-  { month: "Janeiro", agendamentos: 186},
-  { month: "Fevereiro", agendamentos: 305},
-  { month: "Março", agendamentos: 237},
-  { month: "Abril", agendamentos: 73},
-  { month: "Maio", agendamentos: 209},
-  { month: "Junho", agendamentos: 214},
-  { month: "Julho", agendamentos: 186},
-  { month: "Agosto", agendamentos: 305},
-  { month: "Setembro", agendamentos: 237},
-  { month: "Outubro", agendamentos: 73},
-  { month: "Novembro", agendamentos: 209},
-  { month: "Dezembro", agendamentos: 214},
-]
+  { month: "Janeiro", agendamentos: 186 },
+  { month: "Fevereiro", agendamentos: 305 },
+  { month: "Março", agendamentos: 237 },
+  { month: "Abril", agendamentos: 73 },
+  { month: "Maio", agendamentos: 209 },
+  { month: "Junho", agendamentos: 214 },
+  { month: "Julho", agendamentos: 186 },
+  { month: "Agosto", agendamentos: 305 },
+  { month: "Setembro", agendamentos: 237 },
+  { month: "Outubro", agendamentos: 73 },
+  { month: "Novembro", agendamentos: 209 },
+  { month: "Dezembro", agendamentos: 214 },
+];
 
 const chartConfig = {
   agendamentos: {
     label: "Desktop",
     color: "hsl(var(--chart-1))",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function BarChartComponent() {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="flex flex-col h-full">
+      <CardHeader className="items-center pb-0">
         <CardTitle>Total de agendamentos</CardTitle>
         <CardDescription>Janeiro - Dezembro 2024</CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
+      <CardContent className="md:flex-1 md:flex md:justify-center md:items-center pb-0">
+        <ChartContainer config={chartConfig} className="md:h-72">
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -61,7 +61,11 @@ export function BarChartComponent() {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="agendamentos" fill="var(--color-agendamentos)" radius={4} />
+            <Bar
+              dataKey="agendamentos"
+              fill="var(--color-agendamentos)"
+              radius={4}
+            />
           </BarChart>
         </ChartContainer>
       </CardContent>
@@ -74,5 +78,5 @@ export function BarChartComponent() {
         </div>
       </CardFooter> */}
     </Card>
-  )
+  );
 }

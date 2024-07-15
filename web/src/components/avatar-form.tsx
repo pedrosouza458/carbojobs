@@ -6,7 +6,7 @@ import { getProfile } from "@/http/get-profile";
 import { Input } from "@/components/ui/input";
 import { useFormState } from "@/hooks/use-form-state";
 import { useRouter } from "next/navigation";
-import { updateUserAvatarAction } from "@/app/profile/action";
+import { DeletePreviousUserAvatar, updateUserAvatarAction } from "@/app/profile/action";
 import { useToast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
 

@@ -41,7 +41,7 @@ export async function AppointmentList() {
                     <Badge variant="outline">{appointment.status}</Badge>
                     <Dialog>
                       <DialogTrigger asChild className="w-full">
-                        <Trash className="size-5 ml-2 cursor-pointer" />
+                        {/* <Trash className="size-5 ml-2 cursor-pointer" /> */}
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
@@ -82,6 +82,7 @@ export async function AppointmentList() {
                         <DialogTitle>Confirmar Agendamento</DialogTitle>
                         <DialogDescription>
                           Deseja confirmar esse agendamento?
+                          {appointment.id}
                         </DialogDescription>
                       </DialogHeader>
 

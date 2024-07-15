@@ -1,11 +1,13 @@
 import { BarChartComponent } from "@/components/charts/bar-chart";
+import { HorizontalBarChart } from "@/components/charts/horizontal-bar-chart";
 import { PieChartComponent } from "@/components/charts/pie-chart";
+import SecondBarChartComponent from "@/components/charts/second-bar-chart";
 import { TriangleAlert } from "lucide-react";
 
 export default function Reports() {
   return (
     <div>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <div className="w-full bg-[#FBCA1A] text-base font-semibold text-white px-8  py-2 flex items-center justify-center gap-3">
           <TriangleAlert className="size-12 md:size-8" />
           <p className="text-center">
@@ -13,10 +15,23 @@ export default function Reports() {
             verdadeiros.
           </p>
         </div>
-      </div>
-      <div className="pt-4 px-10 grid md:grid-cols-2 gap-4">
-        <BarChartComponent />
-        <PieChartComponent />
+      </div> */}
+      <div className="pt-4 px-10">
+        <div className=" grid md:grid-cols-2 gap-4">
+          <div className="col-span-2">
+            <SecondBarChartComponent />
+          </div>
+        </div>
+        <div className=" grid md:grid-cols-3 gap-4 mt-6">
+          {/* <HorizontalBarChart /> */}
+       
+          {/* <div className="col-span-1">
+            <HorizontalBarChart/>
+          </div>
+          <div className="col-span-2">
+            <SecondBarChartComponent />
+          </div> */}
+        </div>
       </div>
     </div>
   );

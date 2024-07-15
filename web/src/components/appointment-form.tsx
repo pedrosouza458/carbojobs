@@ -1,7 +1,7 @@
 "use client";
 
 import "react-day-picker/dist/style.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { DayPicker, DayOfWeek } from "react-day-picker";
@@ -23,6 +23,7 @@ import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useFormState } from "@/hooks/use-form-state";
 import { createAppointmentAction } from "@/app/appointments/action";
+import { getProfile } from "@/http/get-profile";
 
 interface AppointmentFormProps {
   business_id: string;
@@ -46,10 +47,17 @@ export function AppointmentForm({
   const [selectedDate, setSelectedDate] = useState<Date>();
   const router = useRouter();
 
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getProfile().then((data) => {
+      setUser(data);
+    });
+  }, []);
   const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
     createAppointmentAction,
     () => {
-      alert('Funcionou 😀')
+      alert("Funcionou 😀");
     }
   );
 
@@ -57,8 +65,8 @@ export function AppointmentForm({
     <div>
       <form onSubmit={handleSubmit}>
         <>
-        <Input name="business_id" value={business_id} className="hidden" />
-        <Input name="provider_id" value={provider_id} className="hidden" />
+          <Input name="business_id" value={business_id} className="hidden" />
+          <Input name="provider_id" value={provider_id} className="hidden" />
           <div className="">
             <Calendar
               locale={ptBR}
@@ -68,8 +76,10 @@ export function AppointmentForm({
               disabled={{ dayOfWeek: days }}
             />
             {selectedDate ? (
-              <Input name="date" value={format(selectedDate, "dd/MM/yyyy")} />
-            ):   <Input value='' />}
+              <Input name="date" className="hidden" value={format(selectedDate, "dd/MM/yyyy")} />
+            ) : (
+              <Input value="" className="hidden" />
+            )}
           </div>
           <div className="">
             <div className="space-y-3">
@@ -101,29 +111,60 @@ export function AppointmentForm({
                 className="w-[90%]"
               />
             </div>
-            <div className="space-y-3">
-              <Label htmlFor="name">Nome</Label>
-              <Input
-                type="text"
-                name="name"
-                placeholder="Digite seu nome"
-                className="w-[90%]"
-              />
-            </div>
-            <div className="space-y-3">
-              <Label htmlFor="name">Telefone</Label>
-              <Input
-                type="text"
-                name="phone"
-                placeholder="Digite seu nome"
-                className="w-[90%]"
-              />
-            </div>
-
-            
+            {user && user ? (
+              <div>
+                {user.map((user: any) => (
+                  <div key={user.id}>
+                    {" "}
+                    <div className="space-y-3">
+                      <Label htmlFor="name">Nome</Label>
+                      <Input
+                        type="text"
+                        name="name"
+                        placeholder={user.name}
+                        defaultValue={user.name}
+                        className="w-[90%]"
+                      />
+                    </div>
+                    <div className="space-y-3">
+                      <Label htmlFor="name">Telefone</Label>
+                      <Input
+                        type="text"
+                        name="phone"
+                        defaultValue={user.phone}
+                        placeholder={user.phone}
+                        className="w-[90%]"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div>
+                {" "}
+                <div className="space-y-3">
+                  <Label htmlFor="name">Nome</Label>
+                  <Input
+                    type="text"
+                    name="name"
+                    placeholder="Digite seu nome"
+                    className="w-[90%]"
+                  />
+                </div>
+                <div className="space-y-3">
+                  <Label htmlFor="name">Telefone</Label>
+                  <Input
+                    type="text"
+                    name="phone"
+                    placeholder="Digite seu nome"
+                    className="w-[90%]"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </>
-        <Button type="submit"  className="w-[90%]">
+        <Button type="submit" className="w-[90%]">
           Agendar
         </Button>
       </form>
