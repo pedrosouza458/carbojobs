@@ -29,8 +29,8 @@ export function Banner() {
     consentGiven === "undecided" && (
       <div className="w-full py-4 bg-[#FF3D6D] text-white text-sm font-semibold">
         <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-          <p>
-            Esse site utiliza cookies para armazenar dados, aceite o
+          <p className="text-center">
+            Essa aplicação utiliza cookies para armazenar dados, aceite o
             consentimento.
           </p>
           <div>

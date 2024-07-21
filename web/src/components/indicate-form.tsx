@@ -14,7 +14,6 @@ export function IndicateForm({ providerId }: any) {
     } catch (error) {
       alert('Você já indicou esse prestador.')
       console.error("Error indicating provider:", error);
-      // Handle error (e.g., show error message)
     }
   }
 

@@ -60,7 +60,7 @@ export async function updateUserAvatarAction(data: FormData) {
       const response = await fetch(
         "https://api.cloudinary.com/v1_1/dyx21grtn/image/destroy",
         {
-          method: "POST",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },

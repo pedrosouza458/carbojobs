@@ -75,65 +75,50 @@ export async function Header() {
                 Home
               </Link>
 
-              {user &&
-                user.map((user: any) => (
-                  <div key={user.id}>
-                    {user?.role === "Prestador" && (
-                      <Link
-                        key={user.id}
-                        className=" text-base text-primary font-semibold"
-                        href={"/schedules"}
-                      >
-                        Horários
-                      </Link>
-                    )}
-                  </div>
-                ))}
+              {token && (
+                <Link
+                  className=" text-base text-primary font-semibold"
+                  href={"/schedules"}
+                >
+                  Horários
+                </Link>
+              )}
 
-              {user &&
-                user.map((user: any) => (
-                  <div key={user.id}>
-                    {user?.role === "Prestador" && (
-                      <Link
-                        key={user.id}
-                        className=" text-base text-primary font-semibold"
-                        href={"/appointments"}
-                      >
-                        Agendamentos
-                      </Link>
-                    )}
-                  </div>
-                ))}
+              {token && (
+                <Link
+                  className=" text-base text-primary font-semibold"
+                  href={"/appointments"}
+                >
+                  Agendamentos
+                </Link>
+              )}
 
-              {user &&
-                user.map((user: any) => (
-                  <div key={user.id}>
-                    {user?.role === "Prestador" && (
-                      <Link
-                        key={user.id}
-                        className=" text-base text-primary font-semibold"
-                        href={`/business`}
-                      >
-                        Trabalhos
-                      </Link>
-                    )}
-                  </div>
-                ))}
+              {token && (
+                <Link
+                  className=" text-base text-primary font-semibold"
+                  href={`/business`}
+                >
+                  Trabalhos
+                </Link>
+              )}
 
-              {user &&
-                user.map((user: any) => (
-                  <div key={user.id}>
-                    {user?.role === "Prestador" && (
-                      <Link
-                        key={user.id}
-                        className=" text-base text-primary font-semibold"
-                        href={`/links`}
-                      >
-                        Links
-                      </Link>
-                    )}
-                  </div>
-                ))}
+              {token && (
+                <Link
+                  className=" text-base text-primary font-semibold"
+                  href={`/links`}
+                >
+                  Links
+                </Link>
+              )}
+
+              {token && (
+                <Link
+                  className=" text-base text-primary font-semibold"
+                  href={`/reports`}
+                >
+                  Relatórios
+                </Link>
+              )}
             </SheetHeader>
             {/* <SheetFooter>
           <SheetClose asChild>
@@ -145,39 +130,45 @@ export async function Header() {
         <Link className=" text-sm hidden md:block lg:block" href={"/"}>
           Home
         </Link>
-        {user &&
-          user.map((user: any) => (
-            <>
-              {user?.role === "Prestador" && (
-                <>
-                  <Link
-                    className=" text-sm hidden md:block lg:block"
-                    href={`/business`}
-                  >
-                    Trabalhos
-                  </Link>
-                  <Link
-                    className=" text-sm hidden md:block lg:block"
-                    href={"/schedules"}
-                  >
-                    Horários
-                  </Link>
-                  <Link
-                    className=" text-sm hidden md:block lg:block"
-                    href={"/appointments"}
-                  >
-                    Agendamentos
-                  </Link>
-                  <Link
-                    className=" text-sm hidden md:block lg:block"
-                    href={"/links"}
-                  >
-                    Links
-                  </Link>
-                </>
-              )}
-            </>
-          ))}
+
+        {token && (
+          <Link
+            className=" text-sm hidden md:block lg:block"
+            href={`/business`}
+          >
+            Trabalhos
+          </Link>
+        )}
+
+        {token && (
+          <Link
+            className=" text-sm hidden md:block lg:block"
+            href={"/schedules"}
+          >
+            Horários
+          </Link>
+        )}
+
+        {token && (
+          <Link
+            className=" text-sm hidden md:block lg:block"
+            href={"/appointments"}
+          >
+            Agendamentos
+          </Link>
+        )}
+
+        {token && (
+          <Link className=" text-sm hidden md:block lg:block" href={"/links"}>
+            Links
+          </Link>
+        )}
+
+{token && (
+          <Link className=" text-sm hidden md:block lg:block" href={"/reports"}>
+            Relatórios
+          </Link>
+        )}
       </div>
       <div className="flex items-center lg:gap-4 md:gap-4 pr-4">
         <Dialog>

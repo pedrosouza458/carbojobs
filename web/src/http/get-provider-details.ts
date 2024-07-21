@@ -22,7 +22,7 @@ export interface GetProviderDetailsReponse {
 export async function getProviderDetails(id: string) {
   const user = await api
     .get(`providers/${id}`)
-    .json<GetProviderDetailsReponse>();
+    .json<any>();
 
   return user;
 }

@@ -71,9 +71,9 @@ export default async function ProviderDetails({ params }: { params: { id: string
                   {provider.service} - {provider.city}
                 </p>
                 {provider.indicated != null && <></>}
-                <p className="text-green-500 text-sm font-medium">
+                {/* <p className="text-green-500 text-sm font-medium">
                   {provider.indicated} cliente(s) indicaram esse prestador
-                </p>
+                </p> */}
                 <div className="flex gap-2 w-full">
                   <Dialog>
                     <DialogTrigger asChild className="w-full flex gap-3">
@@ -113,7 +113,7 @@ export default async function ProviderDetails({ params }: { params: { id: string
           </div>
           <Separator className="my-2" />
           <h3 className="text-xl font-bold mb-4 my-6">Links</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-10">
             {links.map((link: any) => (
               <Card key={link.id} className="w-40 h-10 lg:w-60">
                 <CardContent className="flex gap-3 my-2 items-center">

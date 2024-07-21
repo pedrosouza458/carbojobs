@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, CartesianGrid, XAxis, Bar } from "recharts";
 import { getAppointmentsByDay } from "@/http/get-appointments-by-day";
+import { toZonedTime, format } from 'date-fns-tz';
 
 interface ChartData {
   date: string;
@@ -48,8 +49,11 @@ export default function SecondBarChartComponent() {
       try {
         const appointmentsData = await getAppointmentsByDay();
         const dates = getLast3MonthsDates();
+        const timeZone = 'America/Sao_Paulo'; // Use São Paulo time zone
         const mergedData: ChartData[] = dates.map((date) => {
-          const dateKey = date.toISOString().split('T')[0];
+          // Convert each date to the desired time zone
+          const zonedDate = toZonedTime(date, timeZone);
+          const dateKey = format(zonedDate, 'yyyy-MM-dd', { timeZone });
           const matchingData = appointmentsData.find((data: any) => data.date === dateKey);
           return {
             date: dateKey,
@@ -76,6 +80,9 @@ export default function SecondBarChartComponent() {
 
   return (
     <Card className="h-[27.2rem]">
+      {/* {chartData === null && (
+        <p>teste</p>
+      )} */}
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
           <CardTitle>Total de agendamentos por dia</CardTitle>

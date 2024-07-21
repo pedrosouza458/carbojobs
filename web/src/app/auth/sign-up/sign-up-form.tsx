@@ -26,34 +26,32 @@ import { track } from "@vercel/analytics/react";
 
 export function SignUpForm() {
   const router = useRouter();
-  const [selectedRole, setSelectedRole] = useState("");
-  const [phone, setPhone] = useState<string>('55');
+  const [phone, setPhone] = useState<string>("55");
 
   const formatPhoneNumber = (input: string): string => {
-      // Remove any non-digit characters
-      input = input.replace(/\D/g, '');
-      // Ensure it starts with "55"
-      if (!input.startsWith('55')) {
-          input = '55' + input;
-      }
-      // Ensure total length is 13 characters
-      // If the length is less than 4 (55 + 2 blank spaces), pad with spaces
-      if (input.length < 4) {
-          input = input.padEnd(4, ' ');
-      }
-      // If the length is less than 13, pad with spaces
-      if (input.length < 13) {
-          input = input.padEnd(13, ' ');
-      }
-      // Truncate to 13 characters if longer
-      return input.slice(0, 13);
+    // Remove any non-digit characters
+    input = input.replace(/\D/g, "");
+    // Ensure it starts with "55"
+    if (!input.startsWith("55")) {
+      input = "55" + input;
+    }
+    // Ensure total length is 13 characters
+    // If the length is less than 4 (55 + 2 blank spaces), pad with spaces
+    if (input.length < 4) {
+      input = input.padEnd(4, " ");
+    }
+    // If the length is less than 13, pad with spaces
+    if (input.length < 13) {
+      input = input.padEnd(13, " ");
+    }
+    // Truncate to 13 characters if longer
+    return input.slice(0, 13);
   };
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     city: "",
-    role: "Cliente",
     service: "",
     phone: "5551",
     password: "",
@@ -91,7 +89,6 @@ export function SignUpForm() {
       [name]: value,
     }));
   };
-
 
   return (
     <div className="space-y-4">
@@ -160,44 +157,14 @@ export function SignUpForm() {
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="role">Cargo</Label>
-            <Select
-              name="role"
-              value={formData.role}
-              onValueChange={(value) => {
-                setSelectedRole(value);
-                handleSelectChange("role", value);
-              }}
-            >
-              <SelectTrigger className="w-[280px]">
-                <SelectValue placeholder="Cliente" />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.values(Roles).map((role, index) => (
-                  <SelectItem key={index} value={role}>
-                    {role}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-1">
             <Label htmlFor="service">Serviço</Label>
             <Select
               name="service"
               value={formData.service}
               onValueChange={(value) => handleSelectChange("service", value)}
-              disabled={selectedRole !== "Prestador"}
             >
               <SelectTrigger className="w-[280px]">
-                <SelectValue
-                  placeholder={
-                    selectedRole === "Prestador"
-                      ? "Selecione seu cargo"
-                      : "Clientes não tem serviços"
-                  }
-                />
+                <SelectValue placeholder="Selecione seu cargo" />
               </SelectTrigger>
               <SelectContent>
                 {Object.values(Services).map((service, index) => (
@@ -216,7 +183,7 @@ export function SignUpForm() {
               type="tel"
               id="phone"
               value={formData.phone}
-              onChange={handleChange} 
+              onChange={handleChange}
             />
           </div>
 
@@ -252,7 +219,6 @@ export function SignUpForm() {
               </p>
             )}
           </div>
-        
         </div>
         <Button className="w-full" type="submit" disabled={isPending}>
           {isPending ? (

@@ -45,19 +45,15 @@ export function AppointmentForm({
   price,
 }: AppointmentFormProps) {
   const [selectedDate, setSelectedDate] = useState<Date>();
-  const router = useRouter();
 
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    getProfile().then((data) => {
-      setUser(data);
-    });
-  }, []);
   const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
     createAppointmentAction,
-    () => {
-      alert("Funcionou 😀");
+    (response) => {
+      // Redirect to WhatsApp with the message body
+      if (response && response.message) {
+        const messageBody = response.message;
+        window.location.href = messageBody
+      }
     }
   );
 
@@ -76,7 +72,11 @@ export function AppointmentForm({
               disabled={{ dayOfWeek: days }}
             />
             {selectedDate ? (
-              <Input name="date" className="hidden" value={format(selectedDate, "dd/MM/yyyy")} />
+              <Input
+                name="date"
+                className="hidden"
+                value={format(selectedDate, "dd/MM/yyyy")}
+              />
             ) : (
               <Input value="" className="hidden" />
             )}
@@ -111,58 +111,22 @@ export function AppointmentForm({
                 className="w-[90%]"
               />
             </div>
-            {user && user ? (
-              <div>
-                {user.map((user: any) => (
-                  <div key={user.id}>
-                    {" "}
+   
+             
                     <div className="space-y-3">
                       <Label htmlFor="name">Nome</Label>
                       <Input
                         type="text"
                         name="name"
-                        placeholder={user.name}
-                        defaultValue={user.name}
-                        className="w-[90%]"
-                      />
-                    </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="name">Telefone</Label>
-                      <Input
-                        type="text"
-                        name="phone"
-                        defaultValue={user.phone}
-                        placeholder={user.phone}
+                        placeholder="'"
                         className="w-[90%]"
                       />
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div>
-                {" "}
-                <div className="space-y-3">
-                  <Label htmlFor="name">Nome</Label>
-                  <Input
-                    type="text"
-                    name="name"
-                    placeholder="Digite seu nome"
-                    className="w-[90%]"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <Label htmlFor="name">Telefone</Label>
-                  <Input
-                    type="text"
-                    name="phone"
-                    placeholder="Digite seu nome"
-                    className="w-[90%]"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
+          
+         
+       
+       
         </>
         <Button type="submit" className="w-[90%]">
           Agendar

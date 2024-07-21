@@ -8,7 +8,6 @@ interface SignUpRequest {
   email: string
   password: string,
   phone: string,
-  role: Roles,
   city: Cities | null,
   service: string,
 }
@@ -20,7 +19,6 @@ export async function signUp({
   email,
   password,
   city,
-  role,
   phone,
   service,
 }: SignUpRequest): Promise<SignUpResponse> {
@@ -32,7 +30,6 @@ export async function signUp({
         password,
         city,
         phone,
-        role,
         service,
       },
     })

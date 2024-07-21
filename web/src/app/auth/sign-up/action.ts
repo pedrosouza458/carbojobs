@@ -19,7 +19,6 @@ const signUpSchema = z
     password_confirmation: z.string(),
     phone: z.string({ message: "Digite seu telefone" }),
     city: nativeEnum(Cities),
-    role: nativeEnum(Roles),
     service: z.string(),
   })
   .refine((data) => data.password === data.password_confirmation, {
@@ -36,7 +35,7 @@ export async function signUpAction(data: FormData) {
     return { success: false, message: null, errors };
   }
 
-  const { name, email, password, city, phone, role, service } =
+  const { name, email, password, city, phone, service } =
     result.data;
 
   try {
@@ -46,7 +45,6 @@ export async function signUpAction(data: FormData) {
       password,
       city,
       phone,
-      role,
       service: service ? service : "",
     })
 

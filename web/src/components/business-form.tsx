@@ -47,8 +47,9 @@ export function BusinessForm() {
 
         <div className="space-y-1">
           <Label htmlFor="price">Preço</Label>
-          <Input name="price" type="number" id="price" />
-
+          <p>Se não colocar valor, será exibido como "Sem preço definido".</p>
+          <Input name="price" type="text" id="price" />
+          
         </div>
 
         <Button className="w-full" type="submit" disabled={isPending}>

@@ -7,23 +7,29 @@ import { cookies } from "next/headers";
 import { getProfile } from "@/http/get-profile";
 import { createAppointment } from "@/http/create-appointment";
 import { getBusinessDetails } from "@/http/get-business-details";
+import { getProviderDetails } from "@/http/get-provider-details";
 
 export async function createAppointmentAction(data: FormData) {
-
-  const { business_id, provider_id, date, hour, name, phone, description } = {
+  const { business_id, provider_id, date, hour, name, description } = {
     business_id: data.get("business_id")?.toString(),
     provider_id: data.get("provider_id")?.toString(),
     date: data.get("date")?.toString(),
     hour: data.get("hour")?.toString(),
     description: data.get("description")?.toString(),
     name: data.get("name")?.toString(),
-    phone: data.get("phone")?.toString(),
   };
 
   let businessName: any;
   if (business_id) {
     const array = await getBusinessDetails(business_id);
     businessName = array.map((business: any) => business.title);
+  }
+
+  let providerPhone: any;
+  if(provider_id){
+    const arrayProvider = await getProviderDetails(provider_id)
+    providerPhone = arrayProvider.map((provider: any) => provider.phone);
+    console.log(providerPhone)
   }
 
   const { message } = await createAppointment({
@@ -33,10 +39,14 @@ export async function createAppointmentAction(data: FormData) {
     date: date || "",
     hour: hour || "",
     name: name || "",
-    phone: phone || "",
   });
 
-  const redirectUrl = `https://wa.me/5551997000856?text=Olá, me chamo ${name} e gostaria de agendar o serviço ${businessName} no dia ${date} e hora ${hour}</p>`;
-
-  return { success: true, message: null, errors: null, redirectUrl };
+  const messageBody = `*Agendamento*\n\n${
+    description ? `Descrição: ${description}` : "Sem descrição."
+  }\n\n*Nome:* ${name}\n*Serviço:* ${businessName}\n*Dia:* ${date}\n*Hora:* ${hour}`
+  return {
+    success: true,
+    message: `https://wa.me/${providerPhone}?text=${encodeURIComponent(messageBody)}`,
+    errors: null,
+  };
 }
