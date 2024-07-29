@@ -23,6 +23,10 @@ export async function CreateBusiness(app: FastifyInstance) {
       provider_id: userId,
     };
 
+    if(Number(price) < 0){
+      throw new Error('Preço não pode ser menor que 0.')
+    }
+
     for (let prop in business) {
       if (business[prop] == null) {
         delete business[prop];

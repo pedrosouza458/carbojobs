@@ -71,7 +71,7 @@ export function ProviderQRCode({
           />
   
       </article>
-      <h1>https://carbojobs.vercel.app/providers/{providerId}</h1>
+      {/* <h1 className="line-">https://carbojobs.vercel.app/providers/{providerId}</h1> */}
       <Button className=" w-full" onClick={prepareURL}>
         Baixar
       </Button>

@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/http/server.ts",
   "scripts": {
-    "build": "tsx ./src/http/setup.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "tsx ./src/http/setup.ts",
     "dev": "tsx watch ./src/http/server.ts"
   },
   "keywords": [],

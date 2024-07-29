@@ -1,61 +1,42 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { TrendingUp } from "lucide-react";
-import { Label, Pie, PieChart } from "recharts";
+import React, { useEffect, useState } from "react";
+import { PieChart, Pie, Label } from "recharts";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { getAppointmentsByService } from "@/http/get-appointments-by-service";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
-];
+interface ChartData {
+  service: string;
+  appointments: number;
+  fill: string;
+}
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
+  services: {
+    label: "Services",
+  }
 } satisfies ChartConfig;
 
 export function PieChartComponent() {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
+  const [chartData, setChartData] = useState<ChartData[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAppointmentsByService();
+        setChartData(data);
+      } catch (error) {
+        console.error("Error fetching appointments data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  const totalAppointments = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.appointments, 0);
+  }, [chartData]);
 
   return (
     <Card className="h-[25rem]">
@@ -76,8 +57,8 @@ export function PieChartComponent() {
               />
               <Pie
                 data={chartData}
-                dataKey="visitors"
-                nameKey="browser"
+                dataKey="appointments"
+                nameKey="service"
                 innerRadius={60}
                 strokeWidth={5}
               >
@@ -96,7 +77,7 @@ export function PieChartComponent() {
                             y={viewBox.cy}
                             className="fill-foreground text-3xl font-bold"
                           >
-                            250
+                            {totalAppointments.toLocaleString()}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
@@ -112,12 +93,11 @@ export function PieChartComponent() {
                 />
               </Pie>
               <ChartTooltip
-              content={
-                <ChartTooltipContent labelKey="Vistors" nameKey="browser" />
-              }
-            />
+                content={
+                  <ChartTooltipContent labelKey="Appointments" nameKey="service" />
+                }
+              />
             </PieChart>
-         
           </ChartContainer>
         </div>
       </CardContent>

@@ -12,7 +12,6 @@ import { GetLinksByProvider } from "./routes/links/get-links-by-provider";
 import { GetBusinessDetails } from "./routes/business/get-business-details";
 import { GetAppointments } from "./routes/appointments/get-appointments";
 import { ChangeAppointmentStatus } from "./routes/appointments/change-appointment-status";
-import { DeleteAppointments } from "./routes/appointments/delete-appointment";
 import { CreateBusiness } from "./routes/business/create-business";
 import { CreateAppointment } from "./routes/appointments/create-appointment";
 import { DeleteBusiness } from "./routes/business/delete-business";
@@ -20,6 +19,12 @@ import { IndicateProvider } from "./routes/indications/indicate-provider";
 import { CreateLink } from "./routes/links/create-link";
 import { DeleteUser } from "./routes/users/delete-user";
 import { DeleteLink } from "./routes/links/delete-link";
+import { GetAppointmentsByDay } from "./routes/(charts)/appointments/get-appointments-by-day";
+import { GetAppointmentsByService } from "./routes/(charts)/appointments/get-appointments-by-service";
+import { GetToken } from "./routes/tokens/get-token";
+import { ForgotPassword } from "./routes/users/forgot-password";
+import { HideAppointments } from "./routes/appointments/hide-appointment";
+
 require('dotenv').config();
 const app = fastify()
 
@@ -33,6 +38,7 @@ app.register(UpdateUser)
 app.register(LoginUser)
 app.register(GetProfile)
 app.register(DeleteUser)
+app.register(ForgotPassword)
 
 app.register(GetBusinessByProvider)
 app.register(GetBusinessDetails)
@@ -43,7 +49,7 @@ app.register(GetLinksByProvider)
 
 app.register(GetAppointments)
 app.register(ChangeAppointmentStatus)
-app.register(DeleteAppointments)
+app.register(HideAppointments)
 app.register(CreateAppointment)
 
 app.register(CreateLink)
@@ -51,6 +57,10 @@ app.register(DeleteLink)
 
 app.register(IndicateProvider)
 
+app.register(GetAppointmentsByDay)
+app.register(GetAppointmentsByService)
+
+app.register(GetToken)
 
 app.register(fasitfyJwt, {
   secret: process.env.JWT_SECRET as string,

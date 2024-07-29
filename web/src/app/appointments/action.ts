@@ -29,7 +29,7 @@ export async function createAppointmentAction(data: FormData) {
   if(provider_id){
     const arrayProvider = await getProviderDetails(provider_id)
     providerPhone = arrayProvider.map((provider: any) => provider.phone);
-    console.log(providerPhone)
+    // console.log(providerPhone)
   }
 
   const { message } = await createAppointment({
@@ -42,7 +42,7 @@ export async function createAppointmentAction(data: FormData) {
   });
 
   const messageBody = `*Agendamento*\n\n${
-    description ? `Descrição: ${description}` : "Sem descrição."
+    description ? `*Descrição*: ${description}` : "Sem descrição."
   }\n\n*Nome:* ${name}\n*Serviço:* ${businessName}\n*Dia:* ${date}\n*Hora:* ${hour}`
   return {
     success: true,

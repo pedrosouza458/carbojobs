@@ -6,8 +6,8 @@ export async function GetProviderById(app: FastifyInstance) {
     const { id }: any = request.params;
 
     const provider = await sql/*sql*/ `
-    SELECT "id", "name", "avatar_url", "service", "city", "description" , "indicated"
-    FROM users WHERE id = ${id} AND role = 'Prestador'
+    SELECT "id", "name", "avatar_url", "service", "city", "description" , "indicated", "phone"
+    FROM users WHERE id = ${id} 
     `;
     return reply.status(201).send(provider);
   });

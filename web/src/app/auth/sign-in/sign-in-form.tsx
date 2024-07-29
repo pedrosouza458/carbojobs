@@ -50,7 +50,7 @@ export function SignInForm() {
         </div>
 
         <div className="space-y-1">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">Senha</Label>
           <Input name="password" type="password" id="password" />
 
           {errors?.password && (

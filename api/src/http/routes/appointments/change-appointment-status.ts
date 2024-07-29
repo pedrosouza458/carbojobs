@@ -1,39 +1,34 @@
 import { FastifyInstance } from "fastify";
 import { sql } from "../../../lib/db";
-require('dotenv').config();
-const client = require("twilio")(process.env.TWILIO_ACCOUNT_SIDID, process.env.TWILIO_AUTH_TOKEN);
+import { auth } from "../../middlewares/auth";
+
+require("dotenv").config();
 
 export async function ChangeAppointmentStatus(app: FastifyInstance) {
-  app.get("/appointments/:id/:status", async (request, reply) => {
-    // const { status }: any = request.body;
-    const { id, status }: any = request.params;
+  app
+    .register(auth)
+    .get("/appointments/:id/:status", async (request, reply) => {
+      // const { status }: any = request.body;
+      const { id, status }: any = request.params;
+      const { sub } = await request.jwtVerify<{ sub: string }>();
 
-    const appointments = await sql/*sql*/ `
-    UPDATE appointments 
-    SET status = ${status}
-    WHERE id = ${id}
+      const user = await sql/*sql*/ `
+    SELECT "phone" FROM users WHERE id = ${sub}
     `;
+      console.log(user);
 
-    const getPhone = await sql/*sql*/ `
+      const getPhone = await sql/*sql*/ `
     SELECT * FROM appointments 
     WHERE id = ${id}
     `;
-    if (status === "Aceito") {
-      await client.messages.create({
-        body: `Agendamento Confirmado \nNúmero do cliente: ${getPhone[0].phone}`,
-        from: "whatsapp:+14155238886",
-        to: "whatsapp:+555197000856",
-      });
-    }
+      console.log(getPhone);
 
-    if (status === "Rejeitado") {
-      await client.messages.create({
-        body: `Agendamento Rejeitado.`,
-        from: "whatsapp:+14155238886",
-        to: "whatsapp:+555197000856",
-      });
-    }
+      const redirectUrl = `https://carbojobs.com/appointments/${status}`;
 
-    return reply.status(201).send(appointments);
-  });
+      const update = await sql/*sql*/ `
+      UPDATE appointments set status = ${status} WHERE id = ${id}
+      `;
+
+      return reply.redirect(redirectUrl);
+    });
 }

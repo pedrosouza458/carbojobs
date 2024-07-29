@@ -1,6 +1,3 @@
-import { Cities } from "../../../../shared/enums/citites";
-import { Roles } from "../../../../shared/enums/roles";
-import { Services } from "../../../../shared/enums/services";
 import { sql } from "../lib/db";
 
 async function setup() {
@@ -18,7 +15,6 @@ async function setup() {
     "phone" TEXT,
     "days" TEXT[],
     "hours" TEXT[],
-    "role" TEXT NOT NULL,
     "indicated" INTEGER,
     "service" TEXT,
     "city" TEXT NOT NULL,
@@ -33,7 +29,7 @@ CREATE TABLE IF NOT EXISTS "business" (
   "id" TEXT NOT NULL,
   "title" TEXT NOT NULL,
   "description" TEXT,
-  "price" DOUBLE PRECISION,
+  "price" TEXT,
   "bookingFee" DOUBLE PRECISION,
   "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -52,9 +48,7 @@ CREATE TABLE IF NOT EXISTS "appointments" (
   "hour" TEXT,
   "name" TEXT,
   "phone" TEXT,
-  "status" TEXT NOT NULL DEFAULT 'Pendente',
   "provider_id" TEXT,
-  "client_id" TEXT,
   "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -83,11 +77,19 @@ CREATE TABLE IF NOT EXISTS "links" (
 );
 `;
 
+await sql/*sql*/ `
+CREATE TABLE IF NOT EXISTS "tokens" (
+    "id" TEXT NOT NULL,
+    "code" TEXT,
+
+    CONSTRAINT "token_pkey" PRIMARY KEY ("id")
+);
+`;
+
   await sql/*sql*/ `CREATE UNIQUE INDEX "users_email_key" ON "users"("email"); `;
 
   await sql/*sql*/ `ALTER TABLE "business" ADD CONSTRAINT "business_provider_id_fkey" FOREIGN KEY ("provider_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;`;
   await sql/*sql*/ `ALTER TABLE "appointments" ADD CONSTRAINT "appointments_business_id_fkey" FOREIGN KEY ("business_id") REFERENCES "business"("id") ON DELETE SET NULL ON UPDATE CASCADE;`;
-  await sql/*sql*/ `ALTER TABLE "appointments" ADD CONSTRAINT "appointments_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;`;
   await sql/*sql*/ `ALTER TABLE "appointments" ADD CONSTRAINT "appointments_provider_id_fkey" FOREIGN KEY ("provider_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;`;
   await sql/*sql*/ `ALTER TABLE "indications" ADD CONSTRAINT "indications_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;`;
   await sql/*sql*/ `ALTER TABLE "indications" ADD CONSTRAINT "indications_provider_id_fkey" FOREIGN KEY ("provider_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;`;

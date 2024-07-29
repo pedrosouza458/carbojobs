@@ -6,10 +6,12 @@ export async function DeleteUser(app: FastifyInstance) {
   app.register(auth).delete("/users/delete", async (request, reply) => {
     const userId = await request.getCurrentUserId();
 
-    const user = await sql/*sql*/ `
+    await sql/*sql*/ `
      DELETE FROM users WHERE id = ${userId} 
     `;
 
-    return reply.status(201).send('Usuário deletado');
+    return reply.status(201).send({
+      message: 'Usuário Deletado'
+    });
   });
 }

@@ -55,6 +55,7 @@ export default function SecondBarChartComponent() {
           const zonedDate = toZonedTime(date, timeZone);
           const dateKey = format(zonedDate, 'yyyy-MM-dd', { timeZone });
           const matchingData = appointmentsData.find((data: any) => data.date === dateKey);
+          // console.log(dateKey,matchingData ? matchingData.appointments : 0)
           return {
             date: dateKey,
             appointments: matchingData ? matchingData.appointments : 0,

@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -84,14 +85,18 @@ export default function ProfilePage() {
       ))}
 
       <Dialog>
-        <DialogTrigger><Button className="w-full bg-red-500">Deletar Conta</Button></DialogTrigger>
+        <DialogTrigger>
+          <Button className="w-full bg-red-500">Deletar Conta</Button>
+        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Tem certeza que deseja deletar sua conta?</DialogTitle>
             <DialogDescription>
-              Essa ação não pode ser desfeita e você perderá todos os dados do seus agendamentos. (as mensagens do Whatsapp ainda estarão disponíveis)
+              Essa ação não pode ser desfeita e você perderá todos os dados do
+              seus agendamentos. (as mensagens do Whatsapp ainda estarão
+              disponíveis)
             </DialogDescription>
-          <DeleteAccountButton/>
+            <DeleteAccountButton />
           </DialogHeader>
         </DialogContent>
       </Dialog>

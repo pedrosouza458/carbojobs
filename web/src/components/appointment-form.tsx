@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { useFormState } from "@/hooks/use-form-state";
 import { createAppointmentAction } from "@/app/appointments/action";
 import { getProfile } from "@/http/get-profile";
+import moment from "moment";
 
 interface AppointmentFormProps {
   business_id: string;
@@ -52,7 +53,7 @@ export function AppointmentForm({
       // Redirect to WhatsApp with the message body
       if (response && response.message) {
         const messageBody = response.message;
-        window.location.href = messageBody
+        window.location.href = messageBody;
       }
     }
   );
@@ -64,6 +65,7 @@ export function AppointmentForm({
           <Input name="business_id" value={business_id} className="hidden" />
           <Input name="provider_id" value={provider_id} className="hidden" />
           <div className="">
+            {selectedDate?.toDateString()}
             <Calendar
               locale={ptBR}
               mode="single"
@@ -111,22 +113,17 @@ export function AppointmentForm({
                 className="w-[90%]"
               />
             </div>
-   
-             
-                    <div className="space-y-3">
-                      <Label htmlFor="name">Nome</Label>
-                      <Input
-                        type="text"
-                        name="name"
-                        placeholder="'"
-                        className="w-[90%]"
-                      />
-                    </div>
-                  </div>
-          
-         
-       
-       
+
+            <div className="space-y-3">
+              <Label htmlFor="name">Nome</Label>
+              <Input
+                type="text"
+                name="name"
+                placeholder="'"
+                className="w-[90%]"
+              />
+            </div>
+          </div>
         </>
         <Button type="submit" className="w-[90%]">
           Agendar

@@ -9,10 +9,6 @@ export async function GetAppointments(app: FastifyInstance) {
     const appointments = await sql/*sql*/ `
     SELECT * FROM appointments 
     WHERE provider_id = ${userId}
-    ORDER BY 
-    CASE 
-        WHEN status = 'Pendente' THEN 1
-    END;
     `;
 
     return reply.status(201).send( appointments );
