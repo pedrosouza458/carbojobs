@@ -24,6 +24,7 @@ import { GetAppointmentsByService } from "./routes/(charts)/appointments/get-app
 import { GetToken } from "./routes/tokens/get-token";
 import { ForgotPassword } from "./routes/users/forgot-password";
 import { HideAppointments } from "./routes/appointments/hide-appointment";
+import { GetAppointmentsByMonth } from "./routes/(charts)/appointments/get-appointments-by-month";
 
 require('dotenv').config();
 const app = fastify()
@@ -59,6 +60,7 @@ app.register(IndicateProvider)
 
 app.register(GetAppointmentsByDay)
 app.register(GetAppointmentsByService)
+app.register(GetAppointmentsByMonth)
 
 app.register(GetToken)
 

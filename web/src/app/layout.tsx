@@ -6,6 +6,7 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import GoogleAnalitycs from "@/components/analytics";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Banner } from "@/components/cookies-consent-banner";
+
 export const metadata: Metadata = {
   title: "CarboJobs",
   description:

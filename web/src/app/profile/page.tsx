@@ -59,7 +59,6 @@ export default function ProfilePage() {
           </Button>
           <Separator className="mt-2" />
           <AvatarForm />
-          <Separator className="my-3" />
           <form onSubmit={handleSubmit}>
             <div className="space-y-2">
               <Label>Nome</Label>

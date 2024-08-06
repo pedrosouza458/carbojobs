@@ -19,7 +19,6 @@ export async function CreateAppointment(app: FastifyInstance) {
       let { date, hour, name, description }: any =
         request.body;
 
-
       const id = nanoid();
       const appointment: any = {
         id,

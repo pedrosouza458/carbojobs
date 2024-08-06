@@ -6,12 +6,18 @@ import { getProfile } from "@/http/get-profile";
 import { Input } from "@/components/ui/input";
 import { useFormState } from "@/hooks/use-form-state";
 import { useRouter } from "next/navigation";
-import { DeletePreviousUserAvatar, updateUserAvatarAction } from "@/app/profile/action";
+import {
+  DeletePreviousUserAvatar,
+  updateUserAvatarAction,
+} from "@/app/profile/action";
 import { useToast } from "./ui/use-toast";
 import { Toaster } from "./ui/toaster";
+import { UploadButton } from "@/utils/uploadthing";
+import { updateUser } from "@/http/update-profile";
 
 export default function AvatarForm() {
   const [user, setUser] = useState([]);
+  const [imageUrl, setImageUrl] = useState<string>('')
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   useEffect(() => {
@@ -21,22 +27,10 @@ export default function AvatarForm() {
     });
   }, []);
 
-  const router = useRouter();
-
-  const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
-    updateUserAvatarAction,
-    () => {
-      toast({
-        title: "Foto de perfil alterada",
-      });
-      router.push("/profile");
-    }
-  );
-
   return (
     <>
       {user.map((user: any) => (
-        <form key={user.id} onSubmit={handleSubmit}>
+        <form>
           <div className="space-y-2 mt-2">
             <Label>Foto de Perfil</Label>
             <img
@@ -47,12 +41,23 @@ export default function AvatarForm() {
               }
               alt="Avatar"
             />
-            <Input name="avatar_img" type="file" />
-            <Button type="submit" className="pt-2 w-full">Atualizar foto</Button>
+            <UploadButton
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                // Do something with the response
+                console.log("Files: ", res);
+                updateUserAvatarAction(res[0].url)
+                alert("Upload Completed");
+              }}
+              onUploadError={(error: Error) => {
+                // Do something with the error.
+                alert(`ERROR! ${error.message}`);
+              }}
+            />
           </div>
         </form>
       ))}
-      <Toaster/>
+      <Toaster />
     </>
   );
 }

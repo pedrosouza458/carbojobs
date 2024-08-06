@@ -3,10 +3,6 @@ import { sql } from "../../../lib/db";
 // @ts-ignore
 import { nanoid } from "nanoid";
 import { hash } from "bcryptjs";
-const client = require("twilio")(
-  process.env.TWILIO_ACCOUNT_SIDID,
-  process.env.TWILIO_AUTH_TOKEN
-);
 
 export async function CreateUser(app: FastifyInstance) {
   app.post("/users", async (request, reply) => {

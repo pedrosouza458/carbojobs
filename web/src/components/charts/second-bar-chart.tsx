@@ -1,11 +1,21 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { BarChart, CartesianGrid, XAxis, Bar } from "recharts";
 import { getAppointmentsByDay } from "@/http/get-appointments-by-day";
-import { toZonedTime, format } from 'date-fns-tz';
+import { toZonedTime, format } from "date-fns-tz";
 
 interface ChartData {
   date: string;
@@ -30,6 +40,8 @@ const chartConfig: ChartConfig = {
 
 export default function SecondBarChartComponent() {
   const [chartData, setChartData] = useState<ChartData[]>([]);
+  const [firstDay, setFirstDay] = useState<Date | null>(null);
+  const [lastDay, setLastDay] = useState<Date | null>(null);
 
   useEffect(() => {
     const getLast3MonthsDates = () => {
@@ -37,10 +49,23 @@ export default function SecondBarChartComponent() {
       const result: Date[] = [];
       for (let i = 2; i >= 0; i--) {
         const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
-        const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+        const daysInMonth = new Date(
+          date.getFullYear(),
+          date.getMonth() + 1,
+          0
+        ).getDate();
         for (let d = 1; d <= daysInMonth; d++) {
           result.push(new Date(date.getFullYear(), date.getMonth(), d));
         }
+      }
+
+      for (let j = 0; j <= 10; j++) {
+        const nextDay = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() + j
+        );
+        result.push(nextDay);
       }
       return result;
     };
@@ -49,12 +74,14 @@ export default function SecondBarChartComponent() {
       try {
         const appointmentsData = await getAppointmentsByDay();
         const dates = getLast3MonthsDates();
-        const timeZone = 'America/Sao_Paulo'; // Use São Paulo time zone
+        const timeZone = "America/Sao_Paulo"; // Use São Paulo time zone
         const mergedData: ChartData[] = dates.map((date) => {
           // Convert each date to the desired time zone
           const zonedDate = toZonedTime(date, timeZone);
-          const dateKey = format(zonedDate, 'yyyy-MM-dd', { timeZone });
-          const matchingData = appointmentsData.find((data: any) => data.date === dateKey);
+          const dateKey = format(zonedDate, "yyyy-MM-dd", { timeZone });
+          const matchingData = appointmentsData.find(
+            (data: any) => data.date === dateKey
+          );
           // console.log(dateKey,matchingData ? matchingData.appointments : 0)
           return {
             date: dateKey,
@@ -66,7 +93,11 @@ export default function SecondBarChartComponent() {
         console.error("Error fetching appointments data:", error);
       }
     };
-
+   const dates = getLast3MonthsDates();
+    if (dates.length > 0) {
+      setFirstDay(dates[0]);
+      setLastDay(dates[dates.length - 1]);
+    }
     fetchData();
   }, []);
 
@@ -111,8 +142,15 @@ export default function SecondBarChartComponent() {
         </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
-        <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
-          <BarChart accessibilityLayer data={chartData} margin={{ left: 12, right: 12 }}>
+        <ChartContainer
+          config={chartConfig}
+          className="aspect-auto h-[250px] w-full"
+        >
+          <BarChart
+            accessibilityLayer
+            data={chartData}
+            margin={{ left: 12, right: 12 }}
+          >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="date"

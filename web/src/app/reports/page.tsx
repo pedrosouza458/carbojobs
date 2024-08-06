@@ -1,6 +1,5 @@
 import { PieChartComponent } from "@/components/charts/pie-chart";
 import SecondBarChartComponent from "@/components/charts/second-bar-chart";
-import { TriangleAlert } from "lucide-react";
 
 export default function Reports() {
   return (
@@ -20,7 +19,7 @@ export default function Reports() {
             <SecondBarChartComponent />
           </div>
         </div>
-        <div className=" grid md:grid-cols-2 gap-4 mt-6">
+        <div className=" grid md:grid-cols-3 gap-4 mt-6">
           <PieChartComponent/>
        
           {/* <div className="col-span-1">
