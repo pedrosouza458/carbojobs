@@ -13,4 +13,5 @@ export async function GetAppointments(app: FastifyInstance) {
 
     return reply.status(201).send( appointments );
   });
+
 }

@@ -3,9 +3,8 @@ import { sql } from "../../../lib/db";
 import { hash } from "bcryptjs";
 
 export async function ForgotPassword(app: FastifyInstance) {
-  app.put("/forgot-password/:phone", async (request, reply) => {
-    const { phone }: any = request.params;
-    const { code, password }: any = request.body;
+  app.put("/forgot-password", async (request, reply) => {
+    const { code, password, phone, email }: any = request.body;
 
     const checkCode = await sql/*sql*/ `
     SELECT * FROM tokens WHERE code = ${code}
@@ -13,7 +12,7 @@ export async function ForgotPassword(app: FastifyInstance) {
     const hashedPassword = await hash(password, 6);
     if (checkCode) {
       await sql/*sql*/ `
-      UPDATE users SET password = ${hashedPassword} WHERE phone = ${phone}
+      UPDATE users SET password = ${hashedPassword} WHERE phone = ${phone} AND email = ${email}
       `;
       await sql/*sql*/ `
       DELETE FROM tokens WHERE code = ${code}

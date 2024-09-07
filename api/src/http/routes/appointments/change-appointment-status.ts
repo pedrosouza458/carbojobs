@@ -13,14 +13,14 @@ export async function ChangeAppointmentStatus(app: FastifyInstance) {
       const { sub } = await request.jwtVerify<{ sub: string }>();
 
       const user = await sql/*sql*/ `
-    SELECT "phone" FROM users WHERE id = ${sub}
-    `;
+      SELECT "phone" FROM users WHERE id = ${sub}
+      `;
       console.log(user);
 
       const getPhone = await sql/*sql*/ `
-    SELECT * FROM appointments 
-    WHERE id = ${id}
-    `;
+      SELECT * FROM appointments 
+      WHERE id = ${id}
+      `;
       console.log(getPhone);
 
       const redirectUrl = `https://carbojobs.com/appointments/${status}`;

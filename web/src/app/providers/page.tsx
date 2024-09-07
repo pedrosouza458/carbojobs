@@ -1,7 +1,6 @@
 "use client";
 
 import { ProvidersList } from "@/components/providers-list";
-import { FiltersSkeleton } from "@/components/skeletons/filters-skeleton";
 import { ProvidersSkeleton } from "@/components/skeletons/providers-skeleton";
 import { Button } from "@/components/ui/button";
 import {

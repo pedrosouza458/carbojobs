@@ -36,15 +36,6 @@ export async function CreateAppointment(app: FastifyInstance) {
         }
       }
 
-      const service = await sql/*sql*/ `  SELECT "title" FROM business 
-      WHERE id = ${business_id}`;
-
-      const messageBody = `*Agendamento* \n \n${
-        description ? `Descrição: ${description}` : "Sem descrição."
-      }\n \n*Id*: ${id} \n*Nome:* ${name} \n*Serviço*: ${
-        service[0].title
-      } \n*Dia:* ${date} \n*Hora:* ${hour}`;
-
       await sql`INSERT INTO appointments ${sql(appointment)}`;
       return reply.status(201).send({
         message: "Agendamento criado com sucesso",

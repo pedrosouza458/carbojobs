@@ -1,6 +1,5 @@
 import { FastifyInstance } from "fastify";
 import { sql } from "../../../lib/db";
-import { auth } from "../../middlewares/auth";
 
 export async function DeleteBusiness(app: FastifyInstance) {
   app.delete("/business/:id", async (request, reply) => {

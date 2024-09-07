@@ -2,8 +2,6 @@ import { FastifyInstance } from "fastify";
 import { sql } from "../../../lib/db";
 // @ts-ignore
 import { nanoid } from "nanoid";
-import { hash } from "bcryptjs";
-import { auth } from "../../middlewares/auth";
 
 export async function CreateBusiness(app: FastifyInstance) {
   app.post("/business", async (request, reply) => {

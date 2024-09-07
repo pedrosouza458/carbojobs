@@ -1,6 +1,5 @@
 import { FastifyInstance } from "fastify";
 import { sql } from "../../../lib/db";
-import { auth } from "../../middlewares/auth";
 
 export async function HideAppointments(app: FastifyInstance) {
   app.put("/appointments/:id", async (request, reply) => {

@@ -1,12 +1,10 @@
 "use client";
 
-import { Checkbox } from "@/components/ui/checkbox";
 import { Hours } from "@/enums/hours";
 import { Days } from "@/enums/days";
 import { useEffect, useState } from "react";
 import { getProfile } from "@/http/get-profile";
 import { Button } from "@/components/ui/button";
-import { updateSchedule } from "@/http/update-schedule";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import { useFormState } from "@/hooks/use-form-state";
