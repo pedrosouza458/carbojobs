@@ -14,6 +14,7 @@ export async function updatePasswordAction(data: FormData) {
     email: email || '',
     password: password || '',
   });
+  
   return {
     success: true,
     message: `Senha atualizada`,

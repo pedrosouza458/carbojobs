@@ -1,10 +1,5 @@
 "use server";
 
-import { z } from "zod";
-import { createBusiness } from "@/http/create-business";
-import { HTTPError } from "ky";
-import { cookies } from "next/headers";
-import { getProfile } from "@/http/get-profile";
 import { createAppointment } from "@/http/create-appointment";
 import { getBusinessDetails } from "@/http/get-business-details";
 import { getProviderDetails } from "@/http/get-provider-details";

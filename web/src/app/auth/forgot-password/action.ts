@@ -7,14 +7,13 @@ export async function sendCodeAction(data: FormData) {
 
   const code = await GenerateToken();
 
-  const message = `*Código de Confirmação \n\n
-   seu código é ${code}, volte para o formulário ou acesse
-   http://localhost:3000/auth/forgot-password
-  *`;
+  const message = `*Código de Confirmação* \n\n
+   seu código é ${code}, guarde ele, volte para o formulário e clique em próximo \n
+   ou acesse: https://carbojobs.com/auth/forgot-password/update-password
+  `;
   return {
     success: true,
     message: `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
     errors: null,
   };
-
 }

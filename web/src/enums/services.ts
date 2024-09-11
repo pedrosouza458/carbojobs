@@ -13,6 +13,7 @@ export enum Services {
   CONFEITARIAS = "Confeitaria",
   CONSTRUTOR = "Construtor",
   COSTURA = 'Costura',
+  CROCHE = "Crochê",
   CUIDADOR = "Cuidador (a)",
   DEPILAÇÃO = "Depilação",
   DIARISTA = "Diarista",
@@ -38,5 +39,6 @@ export enum Services {
   TATUAGEM = "Tatuagem",
   TAXI = "Taxi",
   TOSA = "Tosa",
+  VENDEDOR = "Vendedor (a)",
   VIDRACARIA = "Vidracaria",
 }

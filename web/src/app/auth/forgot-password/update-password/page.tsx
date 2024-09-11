@@ -5,15 +5,21 @@ import { Input } from "@/components/ui/input";
 import { useFormState } from "@/hooks/use-form-state";
 import { GenerateToken } from "@/http/generate-token";
 import { updatePasswordAction } from "./action";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function UpdatePasswordPage() {
   const router = useRouter()
+  const {toast} = useToast()
   const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
     updatePasswordAction,
     (response) => {
-      // Redirect to WhatsApp with the message body
-      router.push('')
+      router.push("/");
+      toast({
+        title: "Perfil alterado",
+      });
     }
   );
 
@@ -25,18 +31,19 @@ export default function UpdatePasswordPage() {
       </h1>
       <form onSubmit={handleSubmit}>
         <h1>Digite o Código que recebeu</h1>
-        <Input name="code" />
-        <h1>Digite seu telefone</h1>
-        <Input name="phone" />
+        <Input type="text" name="code" />
+        <h1>Digite seu telefone sem espaços</h1>
+        <Input type="text" name="phone" />
         <h1>Digite seu email</h1>
-        <Input name="email" />
+        <Input type="email" name="email" />
         <h1>Digite sua nova senha</h1>
-        <Input name="password" />
-        <Button type="submit">Atualizar conta</Button>
+        <Input type="password" name="password" />
+        <Button type="submit" className="w-full my-3">Atualizar conta</Button>
       </form>
-      <div className="flex items-center">
-        <Button>Próximo</Button>
-      </div>
+      <Button className="w-full" variant="link" size="sm" asChild>
+          <Link href="/auth/forgot-password">Voltar</Link>
+        </Button>
+        <Toaster />
     </div>
   );
 }

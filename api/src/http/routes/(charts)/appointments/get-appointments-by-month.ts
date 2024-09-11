@@ -12,10 +12,9 @@ export async function GetAppointmentsByMonth(app: FastifyInstance) {
       SELECT a.*, b.title
       FROM appointments a
       JOIN business b ON a.business_id = b.id
-      WHERE a.provider_id = ${userId} 
+      WHERE a.provider_id = ${userId}
     `;
       const businessCounts = new Map<string, number | "">();
-
 
       // appointments.forEach((appointment) => {
       //   months.forEach((month) => {

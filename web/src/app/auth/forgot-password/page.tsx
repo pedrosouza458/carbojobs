@@ -6,6 +6,7 @@ import { useFormState } from "@/hooks/use-form-state";
 import { GenerateToken } from "@/http/generate-token";
 
 import { sendCodeAction } from "./action";
+import Link from "next/link";
 
 export default function ForgotPasswordPage() {
 
@@ -22,18 +23,18 @@ export default function ForgotPasswordPage() {
 
   return (
     <div>
-      <h1 className="text-center">
+      <h1 className="text-center mx-3 my-2">
         Gere um código que será enviado para seu telefone, depois volte e aperte
-        em continuar ou acesse .
+        em próximo.
       </h1>
       <form onSubmit={handleSubmit}>
         <h1>Digite seu telefone</h1>
         <Input name="phone" />
-        <Button type="submit">Gerar código</Button>
+        <Button type="submit" className="w-full my-3">Gerar código</Button>
       </form>
-      <div className="flex items-center">
-        <Button>Próximo</Button>
-      </div>
+      <Button className="w-full" variant="link" size="sm" asChild>
+          <Link href="forgot-password/update-password">Próximo</Link>
+        </Button>
     </div>
   );
 }
