@@ -1,6 +1,8 @@
-
-export default async function AppointmentStatus({ params }: { params: { status: string } }) {
-
+export default async function AppointmentStatus({
+  params,
+}: {
+  params: { status: string };
+}) {
   const { status } = params;
   return (
     <div className="text-center px-8 py-8">

@@ -9,12 +9,12 @@ export async function updatePasswordAction(data: FormData) {
   };
 
   await updatePassword({
-    code: code || '',
-    phone: phone || '',
-    email: email || '',
-    password: password || '',
+    code: code || "",
+    phone: phone || "",
+    email: email || "",
+    password: password || "",
   });
-  
+
   return {
     success: true,
     message: `Senha atualizada`,

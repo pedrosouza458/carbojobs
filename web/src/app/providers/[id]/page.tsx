@@ -1,11 +1,7 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
-import { api } from "@/http/api-client";
-import { cookies } from "next/headers";
 import { getProviderDetails } from "@/http/get-provider-details";
-import { getInitials } from "@/utils/get-initials";
 import Image from "next/image";
 import { LinkIcon, Share, Smile, Star, StarHalf, Trash } from "lucide-react";
 import { getBusinessByProvider } from "@/http/get-business-by-provider";
@@ -18,14 +14,16 @@ import {
   DialogTrigger,
   DialogContent,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
 import { AppointmentForm } from "@/components/appointment-form";
 import { getDayNumbers } from "@/utils/get-day-numbers";
 import { IndicateForm } from "@/components/indicate-form";
 
-
-export default async function ProviderDetails({ params }: { params: { id: string } }) {
+export default async function ProviderDetails({
+  params,
+}: {
+  params: { id: string };
+}) {
   // const providerId = cookies().get("provider")?.value;
   const { id } = params;
   let provider: any;
@@ -71,9 +69,9 @@ export default async function ProviderDetails({ params }: { params: { id: string
                   {provider.service} - {provider.city}
                 </p>
                 {provider.indicated != null && <></>}
-                {/* <p className="text-green-500 text-sm font-medium">
+                <p className="text-green-500 text-sm font-medium">
                   {provider.indicated} cliente(s) indicaram esse prestador
-                </p> */}
+                </p>
                 <div className="flex gap-2 w-full">
                   <Dialog>
                     <DialogTrigger asChild className="w-full flex gap-3">
@@ -151,9 +149,13 @@ export default async function ProviderDetails({ params }: { params: { id: string
                     <p className="text-secondary-foreground text-sm  dark:text-gray-400">
                       {business.description}
                     </p>
-                    <p className="pb-2 text-[#53c37c] dark:text-[#22C55D] font-semibold">
-                      R$ {business.price}
-                    </p>
+               
+                      {business.price == 0 ? (
+                        <p className="pb-2 text-[#53c37c] dark:text-[#22C55D] font-medium">Valor a combinar.</p>
+                      ) : (
+                        <p className="pb-2 text-[#53c37c] dark:text-[#22C55D] font-semibold">R$ {business.price}</p>
+                      )}
+                
                   </div>
                   <Dialog>
                     <DialogTrigger asChild className="flex gap-2">
@@ -185,41 +187,6 @@ export default async function ProviderDetails({ params }: { params: { id: string
           </div>
           {business === null && <p>Esse prestador não possui serviços.</p>}
         </div>
-        {/* <div>
-          <h3 className="text-xl font-bold mb-4">Comentários</h3>
-          <div className="space-y-4">
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <Avatar className="w-10 h-10">
-                    <AvatarImage src="/placeholder-user.jpg" />
-                    <AvatarFallback>JR</AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-medium ">Jane Roe</h4>
-
-                      <span className="text-gray-500 dark:text-gray-400 text-sm">
-                        1 week ago
-                      </span>
-                    </div>
-                    <div className="star-rating flex items-center">
-                      <Star className="size-5" fill="#FD3D6D" strokeWidth={0} />
-                      <Star className="size-5" fill="#FD3D6D" strokeWidth={0} />
-                      <Star className="size-5" fill="#FD3D6D" strokeWidth={0} />
-                      <Star className="size-5" fill="#FD3D6D" strokeWidth={0} />
-                      <Star className="size-5" fill="#FD3D6D" strokeWidth={0} />
-                    </div>
-                    <p>
-                      Impressive portfolio, Jared. I can't wait to see what you
-                      create next!
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div> */}
       </div>
     </div>
   );

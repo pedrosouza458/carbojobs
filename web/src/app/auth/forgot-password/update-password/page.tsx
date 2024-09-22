@@ -11,8 +11,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 
 export default function UpdatePasswordPage() {
-  const router = useRouter()
-  const {toast} = useToast()
+  const router = useRouter();
+  const { toast } = useToast();
   const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
     updatePasswordAction,
     (response) => {
@@ -38,12 +38,14 @@ export default function UpdatePasswordPage() {
         <Input type="email" name="email" />
         <h1>Digite sua nova senha</h1>
         <Input type="password" name="password" />
-        <Button type="submit" className="w-full my-3">Atualizar conta</Button>
+        <Button type="submit" className="w-full my-3">
+          Atualizar conta
+        </Button>
       </form>
       <Button className="w-full" variant="link" size="sm" asChild>
-          <Link href="/auth/forgot-password">Voltar</Link>
-        </Button>
-        <Toaster />
+        <Link href="/auth/forgot-password">Voltar</Link>
+      </Button>
+      <Toaster />
     </div>
   );
 }

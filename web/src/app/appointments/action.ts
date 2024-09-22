@@ -21,8 +21,8 @@ export async function createAppointmentAction(data: FormData) {
   }
 
   let providerPhone: any;
-  if(provider_id){
-    const arrayProvider = await getProviderDetails(provider_id)
+  if (provider_id) {
+    const arrayProvider = await getProviderDetails(provider_id);
     providerPhone = arrayProvider.map((provider: any) => provider.phone);
     // console.log(providerPhone)
   }
@@ -38,10 +38,12 @@ export async function createAppointmentAction(data: FormData) {
 
   const messageBody = `*Agendamento*\n\n${
     description ? `*Descrição*: ${description}` : "Sem descrição."
-  }\n\n*Nome:* ${name}\n*Serviço:* ${businessName}\n*Dia:* ${date}\n*Hora:* ${hour}`
+  }\n\n*Nome:* ${name}\n*Serviço:* ${businessName}\n*Dia:* ${date}\n*Hora:* ${hour}`;
   return {
     success: true,
-    message: `https://wa.me/${providerPhone}?text=${encodeURIComponent(messageBody)}`,
+    message: `https://wa.me/${providerPhone}?text=${encodeURIComponent(
+      messageBody
+    )}`,
     errors: null,
   };
 }
