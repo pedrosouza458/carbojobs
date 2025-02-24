@@ -18,7 +18,6 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Roles } from "@/enums/roles";
 import { Cities } from "@/enums/citites";
 import { Services } from "@/enums/services";
 import { signUpAction } from "./action";

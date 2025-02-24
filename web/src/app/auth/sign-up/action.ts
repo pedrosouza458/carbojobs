@@ -5,7 +5,6 @@ import { nativeEnum, z } from "zod";
 
 import { signUp } from "@/http/sign-up";
 import { Cities } from "@/enums/citites";
-import { Roles } from "@/enums/roles";
 
 const signUpSchema = z
   .object({

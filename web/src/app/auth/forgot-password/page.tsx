@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function ForgotPasswordPage() {
 
-  const [{ errors, message, success }, handleSubmit, isPending] = useFormState(
+  const [formState, handleSubmit, isSubmitting] = useFormState(
     sendCodeAction,
     (response) => {
       // Redirect to WhatsApp with the message body
