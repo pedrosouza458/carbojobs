@@ -8,7 +8,7 @@ export async function GetAppointmentsByMonth(app: FastifyInstance) {
     .get("/charts/appointments/months", async (request, reply) => {
       const userId = await request.getCurrentUserId();
 
-      const appointments = await sql/*sql*/ `
+      await sql/*sql*/ `
       SELECT a.*, b.title
       FROM appointments a
       JOIN business b ON a.business_id = b.id

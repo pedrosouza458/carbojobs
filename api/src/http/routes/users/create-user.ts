@@ -3,6 +3,19 @@ import { sql } from "../../../lib/db";
 // @ts-ignore
 import { nanoid } from "nanoid";
 import { hash } from "bcryptjs";
+import { Cities } from "../../../enums/citites";
+import { Services } from "../../../enums/services";
+
+interface CreateUserRequest {
+  name: string;
+  email: string;
+  password: string;
+  city: Cities;
+  phone: string;
+  avatar_url: string;
+  description: string;
+  service: Services;
+}
 
 export async function CreateUser(app: FastifyInstance) {
   app.post("/users", async (request, reply) => {
@@ -20,7 +33,7 @@ export async function CreateUser(app: FastifyInstance) {
     password = await hash(password, 6);
     const id = nanoid();
 
-    const user: any = {
+    const user: CreateUserRequest & { id: string; indicated: number } = {
       id,
       name,
       email,
@@ -33,16 +46,16 @@ export async function CreateUser(app: FastifyInstance) {
       indicated: 0,
     };
 
-    for (let prop in user) {
-      if (user[prop] == null) {
-        delete user[prop];
+    Object.keys(user).forEach((key) => {
+      if (user[key as keyof typeof user] == null) {
+        delete user[key as keyof typeof user];
       }
-    }
-
+    });
+    
     try {
       await sql`INSERT INTO users ${sql(user)}`;
     } catch (error) {
-      throw new Error('Erro inesperado, tente novamente em instantes')
+      throw new Error("Erro inesperado, tente novamente em instantes");
     }
 
     return reply.status(201).send({

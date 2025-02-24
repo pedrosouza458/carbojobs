@@ -3,13 +3,22 @@ import { sql } from "../../../lib/db";
 // @ts-ignore
 import { nanoid } from "nanoid";
 
+interface CreateBusinessRequest {
+  id: string;
+  title: string;  
+  description: string;
+  price: number;
+  bookingFee: number;
+  provider_id: string;
+}
+
 export async function CreateBusiness(app: FastifyInstance) {
   app.post("/business", async (request, reply) => {
     const { sub } = await request.jwtVerify<{ sub: string }>();
 
     const userId = sub
 
-    let { title, description, price, bookingFee }: any = request.body;
+    let { title, description, price, bookingFee } = request.body as CreateBusinessRequest;
     const id = nanoid();
 
     const business: any = {

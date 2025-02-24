@@ -2,9 +2,16 @@ import { FastifyInstance } from "fastify";
 import { sql } from "../../../lib/db";
 import { hash } from "bcryptjs";
 
+interface ForgotPasswordRequest {
+  code: string;
+  password: string;
+  phone: string;
+  email: string;
+}
+
 export async function ForgotPassword(app: FastifyInstance) {
   app.put("/forgot-password", async (request, reply) => {
-    const { code, password, phone, email }: any = request.body;
+    const { code, password, phone, email } = request.body as ForgotPasswordRequest;
 
     const checkCode = await sql/*sql*/ `
     SELECT * FROM tokens WHERE code = ${code}

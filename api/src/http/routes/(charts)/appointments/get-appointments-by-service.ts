@@ -23,7 +23,6 @@ export async function GetAppointmentsByService(app: FastifyInstance) {
         );
       });
 
-      // Prepare the response to show each date once with its count
       const response = Array.from(businessCounts.entries()).map(
         ([service, appointments], index) => ({
           service,

@@ -3,7 +3,7 @@ import { sql } from "../../../lib/db";
 
 export async function GetBusinessByProvider(app: FastifyInstance) {
   app.get("/business/providers/:providerId", async (request, reply) => {
-    const { providerId }: any = request.params;
+    const { providerId } = request.params as { providerId: string };
 
     const business = await sql/*sql*/`
     SELECT b.*, u.hours, u.days, u.id AS provider_id

@@ -11,10 +11,14 @@ interface UserFromEmailProps {
 
 export async function LoginUser(app: FastifyInstance) {
   app.post("/users/login", async (request, reply) => {
-    const { email, password }: any = request.body;
+    const { email, password } = request.body as Partial<UserFromEmailProps>;
 
-    const userFromEmail: UserFromEmailProps[] = await sql/*sql*/ `
-      SELECT "id", "password", "email" FROM users WHERE email = ${email}
+    if (!email) {
+      return reply.status(400).send({ error: "Email is required." });
+    }
+
+    const userFromEmail = await sql<UserFromEmailProps[]>/*sql*/ `
+      SELECT "id", "password", "email" FROM users WHERE email = ${sql(email)}
     `;
 
     if (userFromEmail.length === 0) {
@@ -24,7 +28,7 @@ export async function LoginUser(app: FastifyInstance) {
 
     const hashedPassword = userFromEmail[0].password;
 
-    const isPasswordValid = await compare(password, hashedPassword);
+    const isPasswordValid = password ? await compare(password, hashedPassword) : false;
 
     if (!isPasswordValid) {
       // Return a 401 Unauthorized error if the password is invalid

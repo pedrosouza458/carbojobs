@@ -7,7 +7,7 @@ export async function IndicateProvider(app: FastifyInstance) {
   app.register(auth).post("/indicate/:providerId", async (request, reply) => {
     const userId = await request.getCurrentUserId();
     const id = nanoid();
-    const { providerId }: any = request.params;
+    const { providerId } = request.params as { providerId: string };
 
     // Check if the indication already exists
     const checkIndication = await sql/*sql*/ `

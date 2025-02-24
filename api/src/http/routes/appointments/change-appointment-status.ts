@@ -9,7 +9,7 @@ export async function ChangeAppointmentStatus(app: FastifyInstance) {
     .register(auth)
     .get("/appointments/:id/:status", async (request, reply) => {
       // const { status }: any = request.body;
-      const { id, status }: any = request.params;
+      const { id, status } = request.params as {id: string; status: string};
       const { sub } = await request.jwtVerify<{ sub: string }>();
 
       const user = await sql/*sql*/ `

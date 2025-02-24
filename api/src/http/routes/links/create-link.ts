@@ -2,8 +2,13 @@ import { FastifyInstance } from "fastify";
 import { sql } from "../../../lib/db";
 // @ts-ignore
 import { nanoid } from "nanoid";
-import { hash } from "bcryptjs";
-import { auth } from "../../middlewares/auth";
+
+interface CreateLinkRequest {
+  id: string;
+  title: string;
+  url: string;
+  provider_id: string;
+}
 
 export async function CreateLink(app: FastifyInstance) {
   app.post("/links", async (request, reply) => {
@@ -11,10 +16,10 @@ export async function CreateLink(app: FastifyInstance) {
 
     const userId = sub
 
-    let { title, url }: any = request.body;
+    let { title, url } = request.body as CreateLinkRequest;
     const id = nanoid();
 
-    const links: any = {
+    const links: CreateLinkRequest = {
       id,
       title,
       url,
@@ -22,8 +27,8 @@ export async function CreateLink(app: FastifyInstance) {
     };
 
     for (let prop in links) {
-      if (links[prop] == null) {
-        delete links[prop];
+      if ((links as any)[prop] == null) {
+        delete (links as any)[prop];
       }
     }
 

@@ -1,9 +1,18 @@
 import { FastifyInstance } from "fastify";
 import { sql } from "../../../../lib/db";
+import { Cities } from "../../../../enums/citites";
+import { Services } from "../../../../enums/services";
+
+interface GetProvidersRequest {
+  page: number;
+  city: Cities;
+  name: string;
+  service: Services;
+}
 
 export async function GetProviders(app: FastifyInstance) {
   app.get("/providers", async (request, reply) => {
-    let { page, city, name, service }: any = request.query;
+    let { page, city, name, service } = request.query as GetProvidersRequest;
 
     const limit = 8; // Number of records per page
     if (!page) {

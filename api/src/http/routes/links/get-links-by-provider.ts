@@ -3,7 +3,7 @@ import { sql } from "../../../lib/db";
 
 export async function GetLinksByProvider(app: FastifyInstance) {
   app.get("/links/providers/:providerId", async (request, reply) => {
-    const { providerId }: any = request.params;
+    const { providerId } = request.params as { providerId: string };;
 
     const business = await sql/*sql*/ `
     SELECT * FROM links 
